@@ -691,6 +691,8 @@ function createUserInfoTable(userInfo) {
 
     return userInfoTable;
 }
+
+/*
 function createButtons() {
     // Create a div element to hold buttons
     var buttonContainer = document.createElement("div");
@@ -738,6 +740,74 @@ function createButtons() {
 
     var userInfoContainer = document.getElementById("user-info-container");
     userInfoContainer.insertBefore(buttonContainer, userInfoContainer.firstChild);
+}
+*/
+
+
+function createButtons() {
+    // create a div element to hold buttons
+    var buttonContainer = document.createElement("div");
+    buttonContainer.id = "button-container";
+
+    // create the first button
+    var returnToMenuButton = document.createElement("button");
+    returnToMenuButton.textContent = "Επιστροφή στο Μενού";
+    returnToMenuButton.style.backgroundColor = "rgb(12, 45, 109)";
+    returnToMenuButton.style.color = "white";
+    returnToMenuButton.style.padding = "10px 20px";
+    returnToMenuButton.style.textAlign = "center";
+    returnToMenuButton.style.textDecoration = "none";
+    returnToMenuButton.style.display = "inline-block";
+    returnToMenuButton.style.fontSize = "16px";
+    returnToMenuButton.style.margin = "4px 2px";
+    returnToMenuButton.style.cursor = "pointer";
+    returnToMenuButton.addEventListener("click", function (event) {
+        console.log("Return to Menu button clicked");
+        loadProducts();
+    });
+
+    // create the second button
+    var submitOrderButton = document.createElement("button");
+    submitOrderButton.textContent = "Υποβολή Παραγγελίας";
+    submitOrderButton.style.backgroundColor = "rgb(12, 45, 109)";
+    submitOrderButton.style.color = "white";
+    submitOrderButton.style.padding = "10px 20px";
+    submitOrderButton.style.textAlign = "center";
+    submitOrderButton.style.textDecoration = "none";
+    submitOrderButton.style.display = "inline-block";
+    submitOrderButton.style.fontSize = "16px";
+    submitOrderButton.style.margin = "4px 2px";
+    submitOrderButton.style.cursor = "pointer";
+    submitOrderButton.addEventListener("click", submitOrder);
+
+    // create the third button for navigating to "profilsection.php"
+    var changeProfileButton = document.createElement("button");
+    changeProfileButton.textContent = "Αλλαγή Στοιχείων";
+    changeProfileButton.style.backgroundColor = "rgb(12, 45, 109)";
+    changeProfileButton.style.color = "white";
+    changeProfileButton.style.padding = "10px 20px";
+    changeProfileButton.style.textAlign = "center";
+    changeProfileButton.style.textDecoration = "none";
+    changeProfileButton.style.display = "inline-block";
+    changeProfileButton.style.fontSize = "16px";
+    changeProfileButton.style.margin = "4px 2px";
+    changeProfileButton.style.cursor = "pointer";
+    changeProfileButton.addEventListener("click", function (event) {
+        console.log("Change Profile button clicked");
+        window.location.href = "profilsection.php";
+    });
+
+
+    buttonContainer.appendChild(returnToMenuButton);
+    buttonContainer.appendChild(submitOrderButton);
+    buttonContainer.appendChild(changeProfileButton);
+
+
+    var orderContainer = document.getElementById("order-summary-container");
+    orderContainer.appendChild(buttonContainer);
+
+    var userInfoContainer = document.getElementById("user-info-container");
+    userInfoContainer.appendChild(buttonContainer);
 }
 
 function submitOrder() {
