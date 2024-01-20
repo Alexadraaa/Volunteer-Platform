@@ -36,7 +36,7 @@ if (isset($_SESSION['user_id'])) {
     <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
         <a href="announcementscitizen.html" onclick="toggleMenu()">Ανακοινώσεις</a>
        <!-- <a href="requests.html" onclick="toggleMenu()">Υπηρεσίες</a>-->
-        <a href="testrequest1.php" onclick="toggleMenu()">Υπηρεσίες</a>
+        <a href="requests.php" onclick="toggleMenu()">Υπηρεσίες</a>
         <a href="contact.html" onclick="toggleMenu()">Επικοινωνία</a>
 </div>
 
