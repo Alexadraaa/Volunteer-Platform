@@ -39,6 +39,7 @@ $conn->close();
     <link rel="stylesheet" type="text/css" href="..\css\umf.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-3MXwVuYi4I3nbLckmfrSrQ86AOk+2Fc2sc9p8h7Q8Q4jpn3TIWWV6A/5aqL8z5SIN6UBVVVGO1hU1c3V3P36RQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="..\js\umf.js" ></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>User Profile</title>
 </head>
 <body>
@@ -121,9 +122,8 @@ $conn->close();
       <textarea id="deliveryInstructions" name="deliveryInstructions"></textarea>
     </section>
 
-    <!-- Buttons for Save and Reset -->
     <div class="button-container">
-      <button type="submit">Αποθήκευση</button>
+      <button type="button" onclick="updateProfile()">Αποθήκευση</button>
     </div>
   </form>
 </div>
@@ -169,26 +169,83 @@ $conn->close();
 </body>
 
 <script>
-function updateProfile(event) {
-    event.preventDefault();
-
-    // get form data
+  /*
+function updateProfile() {
     var formData = $("#profileForm").serialize();
     console.log("Form Data:", formData);
 
     $.ajax({
         type: "POST",
-        url: "update_profile.php",
+        url: "update_profil.php",
         data: formData,
         success: function (response) {
-            alert("Profile updated successfully!");
+            var result = JSON.parse(response);
+            if (result.success) {
+                alert("Profile updated successfully!");
+            } else {
+                alert("Error updating profile. Please try again.");
+            }
+        },
+        error: function (error) {
+            alert("Error updating profile. Please try again.");
+        }
+    });
+}*/
+
+function updateProfile() {
+    var formData = $("#profileForm").serialize();
+    console.log("Form Data:", formData);
+/*
+    $.ajax({
+        type: "POST",
+        url: "update_profil.php",
+        data: formData,
+        success: function (response) {
+            try {
+                var result = JSON.parse(response);
+                if (result.success) {
+                    alert("Profile updated successfully!");
+                } else {
+                    var errorMessage = result.error || "Error updating profile. Please try again.";
+                    alert(errorMessage);
+                }
+            } catch (e) {
+                console.error("Error parsing JSON response:", e);
+                alert("Unexpected response from the server. Please try again.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX request failed:", status, error);
+            alert("Error updating profile. Please try again.");
+        }
+    });*/
+    
+    $.ajax({
+        type: "POST",
+        url: "update_profil.php",
+        data: formData,
+        success: function (response) {
+            try {
+                var result = JSON.parse(response);
+                if (result.success) {
+                    alert(result.message);
+                } else {
+                    if (result.error === 'Username already exists.') {
+                        alert(result.error);
+                    } else {
+                        alert("Error updating profile. Please try again.");
+                    }
+                }
+            } catch (e) {
+                console.error("Error parsing JSON response:", e);
+                alert("Unexpected response from the server. Please try again.");
+            }
         },
         error: function (error) {
             alert("Error updating profile. Please try again.");
         }
     });
 }
-
 
 </script>
 </html>   
