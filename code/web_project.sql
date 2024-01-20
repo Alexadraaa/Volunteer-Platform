@@ -57,6 +57,16 @@ on delete cascade on update cascade
 );
 
 
+CREATE TABLE orders (
+    or_id INT NOT NULL AUTO_INCREMENT,
+    or_c_id INT NOT NULL,
+    or_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    or_type ENUM('Αίτημα', 'Προσφορά') ,
+	order_state ENUM('Σε επεξεργασία', 'Παραδόθηκε', 'Προς Παράδοση') NOT NULL,
+    PRIMARY KEY(or_id),
+    CONSTRAINT ordc FOREIGN KEY(or_c_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 create table requests(
 re_id int not null auto_increment,
 re_c_id int not null,
@@ -68,19 +78,10 @@ constraint civid foreign key(re_c_id) references civilian(c_id)
 on delete cascade on update cascade,
 constraint prid foreign key(re_pr_id) references base(product_id)
 on delete cascade on update cascade,
-constraint orid foreign key(re_od_id) references orders(or_id)
+constraint orid foreign key(re_or_id) references orders(or_id)
 on delete cascade on update cascade
 );
 
-
-CREATE TABLE orders (
-    or_id INT NOT NULL AUTO_INCREMENT,
-    or_c_id INT NOT NULL,
-    or_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    or_type ENUM('offer', 'request'),
-    PRIMARY KEY(or_id),
-    CONSTRAINT ordc FOREIGN KEY(or_c_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
 
 insert into users values
 ('1001','Marianthi','Thodi','Sostratou 15','6987562335','MThodi','Marianthi','admin',null),
