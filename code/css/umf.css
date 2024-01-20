@@ -1,0 +1,279 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    
+  }
+  
+  header {
+    background-color: rgb(12, 45, 109);
+    color: white;
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  #mySidenav {
+    height: 30%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(12, 45, 109);
+    overflow-x: hidden;
+    transition: 0.2s;
+    padding-top: 60px;
+  }
+  
+  
+  
+  #mySidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #ffff;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  
+  #menu-toggle {
+    cursor: pointer;
+    color: #fff;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+    font-size: 24px;
+    font-weight: bold;
+    font-size: 30px;
+  }
+  
+  #close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+  }
+
+  /* Adjust the positioning of the icon */
+.top-right-button {
+    position: fixed;
+    top: 30px;
+    right: 40px; /* Adjust the distance from the right to make space for the menu */
+    width: 50px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 2;
+  }
+  
+  
+  #user-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    z-index: 2; /* Set a higher z-index to make sure it appears above other elements */
+  }
+  
+  
+  #imageButton {
+    position: absolute;
+    top: 30px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  #imageButton img {
+    width: 30px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    object-fit: contain; /* Maintain aspect ratio */
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: hsl(0, 20%, 98%);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 100%;
+    right: 0;
+  }
+  
+  #imageButton:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown-content a {
+    color: #818181;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #111;
+  }
+
+  #menu-container {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  .quantity-input {
+    width: 40px;
+  }
+
+  button {
+    display: block;
+    margin: auto;
+    
+  }
+  
+ 
+  
+  footer {
+    background-color:#333; /* Set your desired background color */
+    padding: 20px; /* Adjust padding as needed */
+  }
+  
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Center text content horizontally */
+  }
+  
+  .button {
+    display: inline-block;
+    margin-top: 10px; /* Add margin-top to create space between the text and button */
+    padding: 10px 10px;
+    background-color:  rgb(12, 45, 109); 
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .section1,
+  .section2 {
+    flex: 1;
+  }
+  
+  .section2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .column {
+    flex: 1;
+    margin-right: 20px; /* Adjust margin as needed */
+    color: #fff; /* Example text color for each column */
+  }
+  
+  .column h3 {
+    margin-bottom: 20px; /* Add margin to create space between heading and links */
+  }
+  
+  .column a {
+    color: #fff; /* Set the color for links */
+    text-decoration: none; /* Remove underline from links */
+    display: block; /* Ensure links are block-level elements */
+    margin-bottom: 5px; /* Add margin to create space between links */
+  }
+  
+  p {
+    margin: 10px; /* Adjust margin as needed */
+  }
+  
+  .divider {
+    margin: 20px 0; /* Adjust margin as needed */
+    border: 0;
+    border-top: 1px solid  rgb(12, 45, 109); /* Set the color of the divider */
+  }
+  .button img {
+    display: block; /* Ensure the image is a block element */
+    width: 20px; /* Set the width of the image */
+    height: 50px;
+    height: auto; /* Maintain the aspect ratio */
+    border: none; /* Remove any default border on the image */
+  }
+  
+  #map {
+    width: 100%;
+    height: 100px;
+    border-radius: 50%;
+  }
+  
+  
+  .fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    border-radius: 50%;
+  }
+  
+  .fa:hover {
+      opacity: 0.7;
+  }
+  
+  .fa-facebook {
+    background: rgb(12, 45, 109);
+    color: white;
+    width: 10px;
+    height: 10px;
+  }
+  
+  .fa-twitter {
+    background: rgb(12, 45, 109);
+    color: white;
+    width: 10px;
+    height: 10px;
+  }
+  
+  .fa-envelope {
+    background: rgb(12, 45, 109);
+    color: white;
+    width: 10px;
+    height: 10px;
+  }
+  
+  .left-align-icons {
+    display: flex;
+    margin-top: 60px;
+    margin-right:70px;
+
+  }

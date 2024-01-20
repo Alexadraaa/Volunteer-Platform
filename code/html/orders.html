@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_nXA2oQ_YYbhvUp2MComLx7GwZLWVAxw&callback=initMap"></script>
+    <link rel="stylesheet" type="text/css" href="..\css\orders.css">
+    <link rel="stylesheet" type="text/css" href="..\css\umf.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-3MXwVuYi4I3nbLckmfrSrQ86AOk+2Fc2sc9p8h7Q8Q4jpn3TIWWV6A/5aqL8z5SIN6UBVVVGO1hU1c3V3P36RQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="..\js\umf.js" ></script>
+   <script src="..\js\orders.js" ></script>
+    <title>User Orders</title>
+</head>
+<body>
+
+  <!-- Menu Toggle Button -->
+  <div id="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+    
+  <header>
+      <h1> Συναλλαγές</h1>
+  </header>
+
+    <!-- Side Navigation Menu -->
+    <div id="mySidenav">
+        <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
+        <a href="mainpagecitizen.html" onclick="toggleMenu()">Αρχική</a>
+        <a href="announcementscitizen.html" onclick="toggleMenu()">Ανακοινώσεις</a>
+        <a href="requests.html" onclick="toggleMenu()">Υπηρεσίες</a>
+        <a href="contact.html" onclick="toggleMenu()">Επικοινωνία</a>
+    </div>
+
+    <div id="user-container">
+        <button id="imageButton" onclick="toggleUserMenu()">
+            <img src="ssmvtnogc7ue0jufjd03h6mj89.png" alt="Button Image">
+            <div id="userMenu" class="dropdown-content">
+                <a href="orders.html">Λίστα Αιτημάτων/Προσφορών</a>
+                <a href="profil.html">Προφιλ</a>
+                <a href="initialpage.php">Αποσύνδεση</a>
+            </div>
+        </button>
+    </div>
+
+<div id="main-content">
+  <table id="orderTable">
+    <thead>
+        <tr>
+            <th>ID Παραγγελίας</th>
+            <th>Κατάσταση</th>
+            <th>Ονοματεπώνυμο</th>
+            <th>Ημ/νία</th>
+            <th>Ημερομηνία Παράδοσης</th>
+            <th>Ενέργειες</th>
+            <th>Αίτηματα/Προσφορά</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Table rows will be added dynamically using JavaScript -->
+    </tbody>
+</table>
+</div>
+
+
+
+<footer>
+    <div class="footer-section">
+      <div></div>  
+      <p>Με την βοήθειά σου ,στηρίζεις τον καθημερινό διαμερισμό προιόντων σε ανθρώπους που το έχουν ανάγκη.Δώρισε σήμερα!</p>
+      <a href="requests.html" class="button">
+        <img src="donate.png" alt="Donate Now">
+    </a>
+    </div>
+        <hr class="divider">
+        <div class="section2">
+                <div class="column">
+                    <h3>Επικοινωνία</h3>
+                    <ul>
+                      <li>Τηλέφωνο(χωρίς χρέωση):+306946930521</li>
+                      <li>Κινητό:+306946930521</li>
+                  </ul>
+                  <div id="social-media" class="left-align-icons" style="margin-top: 10px;">
+                    <a href="#" class="fa fa-facebook icon-small" target="_blank" rel="noopener noreferrer"></a>
+                    <a href="#" class="fa fa-twitter icon-medium" target="_blank" rel="noopener noreferrer"></a>
+                    <a href="mailto:thebestteam@outlook.com" class="fa fa-envelope icon-small"></a>
+                </div>
+                </div>
+                <div class="column">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="mainpagecitizen.html">Η Ομάδα Μας</a></li>
+                        <li><a href="requests.html">Υπηρεσίες</a></li>
+                        <li><a href="contact.html">Επικοινωνία</a></li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3>Τοποθεσία</h3>
+                    <p>Πλατεία Γεωργίου,Πάτρα</p>
+                   <div id="map"></div>  
+             </div>
+            </div>
+</footer>
+
+<script>
+const orders = [
+    { id: 1, state: 'Shipped', fullName: 'John Doe', orderDate: '2023-01-01', deliveryDate: '2023-01-10',item:'Αίτημα' },
+    // Add more orders as needed
+];
+
+const tableBody = document.querySelector('#orderTable tbody');
+
+// Function to populate the table with orders
+function populateTable() {
+    tableBody.innerHTML = ''; // Clear existing rows
+
+    orders.forEach(order => {
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+            <td><a href="eachorder.html?id=${order.id}">${order.id}</a></td>
+            <td>${order.state}</td>
+            <td>${order.fullName}</td>
+            <td>${order.orderDate}</td>
+            <td>${order.deliveryDate}</td>
+            <td>
+            <button class="icon-button" onclick="editOrder(${order.id})" title="Επεξεργασία">
+              <img src="edit.png" alt="Edit">
+            </button>
+            <button class="icon-button" onclick="deleteOrder(${order.id})" title="Διαγραφή">
+              <img src="delete.png" alt="Delete">
+            </button>
+            </td>
+            <td>${order.item}</td>
+           
+
+        `;
+    });
+}
+
+// Function to edit an order (replace this with your actual edit logic)
+function editOrder(orderId) {
+    alert(`Edit order with ID ${orderId}`);
+}
+
+// Function to delete an order (replace this with your actual delete logic)
+function deleteOrder(orderId) {
+    alert(`Delete order with ID ${orderId}`);
+}
+
+// Initial population of the table
+populateTable();
+
+
+
+</script>
+</body>
+</html>

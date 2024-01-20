@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #eef3fc; 
+  }
+  
+  #header-container {
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); 
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+    border-radius: 0 0 40px 40px;
+  }
+  
+  #header {
+    font-size: 32px;
+    text-align: center;
+    color: #333333d7; 
+    margin: 0; 
+    border-radius: 15px 15px 0 0;
+  }
+  
+  #login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  input {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 200px;
+  }
+  
+  p {
+    font-size: 14px; /* Smaller font size for the message */
+    margin-bottom: 10px; /* Adjusted margin */
+  }
+  
+  a {
+    text-decoration: none; 
+    color:  rgb(73, 184, 215);; 
+  }
+  
+  .btn {
+    padding: 10px;
+    width: 150px;
+    background-color: rgb(73, 184, 215); 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 5px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
