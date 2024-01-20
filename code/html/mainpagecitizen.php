@@ -34,10 +34,10 @@ if (isset($_SESSION['user_id'])) {
   <!-- Side Navigation Menu -->
   <div id="mySidenav">
     <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
-        <a href="announcementscitizen.html" onclick="toggleMenu()">Ανακοινώσεις</a>
+        <a href="announcementscitizen.php" onclick="toggleMenu()">Ανακοινώσεις</a>
        <!-- <a href="requests.html" onclick="toggleMenu()">Υπηρεσίες</a>-->
         <a href="requests.php" onclick="toggleMenu()">Υπηρεσίες</a>
-        <a href="contact.html" onclick="toggleMenu()">Επικοινωνία</a>
+        <a href="contact.php" onclick="toggleMenu()">Επικοινωνία</a>
 </div>
 
 
@@ -45,8 +45,8 @@ if (isset($_SESSION['user_id'])) {
   <button id="imageButton" onclick="toggleUserMenu()">
       <img src="ssmvtnogc7ue0jufjd03h6mj89.png" alt="Button Image">
       <div id="userMenu" class="dropdown-content">
-          <a href="orders.html">Λίστα Αιτημάτων/Προσφορών</a>
-          <a href="profil.html">Προφιλ</a>
+          <a href="orders.php">Λίστα Αιτημάτων/Προσφορών</a>
+          <a href="profilsection.php">Προφιλ</a>
           <a href="initialpage.php">Αποσύνδεση</a>
       </div>
   </button>
