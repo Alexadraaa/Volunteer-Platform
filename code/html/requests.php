@@ -44,15 +44,15 @@ if ($userInfoResult->num_rows > 0) {
   <div id="mySidenav">
     <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
     <a href="mainpagecitizen.php" onclick="toggleMenu()">Αρχική</a>
-    <a href="announcementscitizen.html" onclick="toggleMenu()">Ανακοινώσεις</a>
-    <a href="contact.html" onclick="toggleMenu()">Επικοινωνία</a>
+    <a href="announcementscitizen.php" onclick="toggleMenu()">Ανακοινώσεις</a>
+    <a href="contact.php" onclick="toggleMenu()">Επικοινωνία</a>
   </div>
 
   <div id="user-container">
     <button id="imageButton" onclick="toggleUserMenu()">
       <img src="ssmvtnogc7ue0jufjd03h6mj89.png" alt="Button Image">
       <div id="userMenu" class="dropdown-content">
-        <a href="orders.html">Λίστα Αιτημάτων/Προσφορών</a>
+        <a href="orders.php">Λίστα Αιτημάτων/Προσφορών</a>
         <a href="profilsection.php">Προφιλ</a>
         <a href="initialpage.php">Αποσύνδεση</a>
       </div>
