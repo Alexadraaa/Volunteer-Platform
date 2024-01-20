@@ -55,17 +55,17 @@ $conn->close();
     <div id="mySidenav">
         <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
         <a href="mainpagecitizen.php" onclick="toggleMenu()">Αρχική</a>
-        <a href="announcementscitizen.html" onclick="toggleMenu()">Ανακοινώσεις</a>
+        <a href="announcementscitizen.php" onclick="toggleMenu()">Ανακοινώσεις</a>
         <a href="requests.php" onclick="toggleMenu()">Υπηρεσίες</a>
-        <a href="contact.html" onclick="toggleMenu()">Επικοινωνία</a>
+        <a href="contact.php" onclick="toggleMenu()">Επικοινωνία</a>
     </div>
 
     <div id="user-container">
         <button id="imageButton" onclick="toggleUserMenu()">
             <img src="ssmvtnogc7ue0jufjd03h6mj89.png" alt="Button Image">
             <div id="userMenu" class="dropdown-content">
-                <a href="orders.html">Λίστα Αιτημάτων/Προσφορών</a>
-                <a href="profil.html">Προφιλ</a>
+                <a href="orders.php">Λίστα Αιτημάτων/Προσφορών</a>
+                <a href="profilsection.php">Προφιλ</a>
                 <a href="initialpage.php">Αποσύνδεση</a>
             </div>
         </button>
@@ -90,32 +90,26 @@ $conn->close();
       <input type="password" id="confirmPassword" name="confirmPassword" value="<?php echo htmlspecialchars($user_data['masked_password']); ?>" required>
     </section>
 
-    <!-- Shipping Information Section -->
     <section>
       <h2>Πληροφορίες Αποστολής</h2>
       <label for="name">Όνομα:</label>
       <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user_data['name']); ?>" required>
 
-<!-- Lastname Input Field -->
       <label for="lastname">Επίθετο:</label>
       <input type="text" id="lastname" name="lastname" value="<?php echo htmlspecialchars($user_data['lastname']); ?>" required>
 
-<!-- Phone Input Field -->
       <label for="phone">Κινητό:</label>
       <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($user_data['phone']); ?>">
 
-<!-- Address Input Field -->
       <label for="address">Διεύθυνση:</label>
       <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($user_data['address']); ?>">
 
-<!-- Username Input Field -->
      <label for="username">Username:</label>
      <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($user_data['username']); ?>" required>
 
 
 </section>
 
-    <!-- Delivery Instructions -->
     <section>
       <h2>Οδηγίες Παράδοσης</h2>
       <label for="deliveryInstructions">Οδηγίες Παράδοσης:</label>
