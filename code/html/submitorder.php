@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productsData = json_decode($_POST["products"], true);
 
     // create a single order for all requests made by the user
-    $sqlOrder = "INSERT INTO orders (or_c_id, or_date, or_type) VALUES ($userId, NOW(), 'request')";
+    $sqlOrder = "INSERT INTO orders (or_c_id, or_date, or_type, order_state) VALUES ($userId, NOW(), 'Αίτημα', 'Σε επεξεργασία')";
     mysqli_query($conn, $sqlOrder);
 
     // Retrieve the generated order ID
