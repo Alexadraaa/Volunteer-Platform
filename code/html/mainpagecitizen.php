@@ -3,14 +3,12 @@ session_start();
 
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
-   echo "User ID: $userId";
+  // echo "User ID: $userId";
 } else {
 
     echo "User not logged in.";
 }
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -65,10 +63,15 @@ if (isset($_SESSION['user_id'])) {
 <div id="container">
   <div id="text-container">
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Nullam non libero ut sem auctor porttitor. Vivamus sed ex at nisi hendrerit
-      venenatis ut id dolor.
+    Καλωσορίστε στην πλατφόρμα μας, ένα σύστημα που δημιουργήθηκε από τρεις ανθρώπους με την αποστολή να παρέχει άμεση βοήθεια και ανακούφιση σε κοινότητες που αντιμετωπίζουν φυσικές καταστροφές. Η ιδέα για τη δημιουργία αυτής της πλατφόρμας γεννήθηκε μετά τις πλημμύρες που συνέβησαν το Σεπτέμβριο του 2023, καθιστώντας την ανάγκη για αμεσότερη και αποτελεσματική αντιμετώπιση πιο επιτακτική από ποτέ.
+
+Ελάτε μαζί μας και συνεισφέρετε στη δημιουργία μιας κοινότητας που ενισχύεται από τη συνεργασία και την αμοιβαία βοήθεια. Με τη συνδρομή των εθελοντών, των διασωστών και των οχημάτων μας, έχουμε ήδη επιτύχει σημαντικά αποτελέσματα. Με 250 εθελοντές, 120 διασώστες και 30 οχήματα στη διάθεσή μας, είμαστε πανέτοιμοι να ανταπεξέλθουμε σε κάθε κρίση και να παρέχουμε τη βοήθεια που χρειάζεται η κοινότητα. Σας προσκαλούμε να γίνετε μέρος αυτής της αποστολής και να μας βοηθήσετε να κάνουμε τη διαφορά μαζί.
     </p>
+  </div>
+  <div id="image-container">
+    <img src="aleks.jpg" alt="Αλεξάνδρα Καγιούλη">
+    <img src="aleksis.jpg" alt="Αλέξης Γεωργαντόπουλος">
+    <img src="επαγγελματικη.jpg" alt="Μαριάνθη Θώδη">
   </div>
 
   <div id="counters-container">
@@ -93,7 +96,7 @@ if (isset($_SESSION['user_id'])) {
   <div class="footer-section">
     <div></div>  
     <p>Με την βοήθειά σου ,στηρίζεις τον καθημερινό διαμερισμό προιόντων σε ανθρώπους που το έχουν ανάγκη.Δώρισε σήμερα!</p>
-    <a href="requests.html" class="button">
+    <a href="announcementscitizen.php" class="button">
       <img src="donate.png" alt="Donate Now">
   </a>
   </div>
@@ -114,9 +117,9 @@ if (isset($_SESSION['user_id'])) {
               <div class="column">
                   <h3>Links</h3>
                   <ul>
-                      <li><a href="mainpagecitizen.html">Η Ομάδα Μας</a></li>
-                      <li><a href="requests.html">Υπηρεσίες</a></li>
-                      <li><a href="contact.html">Επικοινωνία</a></li>
+                      <li><a href="mainpagecitizen.php">Η Ομάδα Μας</a></li>
+                      <li><a href="requests.php">Υπηρεσίες</a></li>
+                      <li><a href="contact.php">Επικοινωνία</a></li>
                   </ul>
               </div>
               <div class="column">
