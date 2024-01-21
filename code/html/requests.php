@@ -40,7 +40,7 @@ if ($userInfoResult->num_rows > 0) {
     <h1> Υποβολή Αιτημάτων</h1>
   </header>
 
-  <!-- Side Navigation Menu -->
+  <!-- side Navigation Menu -->
   <div id="mySidenav">
     <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
     <a href="mainpagecitizen.php" onclick="toggleMenu()">Αρχική</a>
@@ -75,7 +75,7 @@ if ($userInfoResult->num_rows > 0) {
 <div id="menu1" class="content tab-content">
   <table class="product-table">
     <tbody id="product-table-body">
-      <!-- The product rows will be dynamically added here -->
+      <!-- the product rows will be dynamically added here -->
     </tbody>
   </table>
   </div>
@@ -83,14 +83,14 @@ if ($userInfoResult->num_rows > 0) {
     <div id="category-container">
         <table class="category-table">
             <tbody id="category-table-body">
-                <!-- Categories will be dynamically added here -->
+                <!-- categories will be dynamically added here -->
             </tbody>
         </table>
         </div>
     <div id="products-container">
         <table class="products-table">
             <tbody id="products-table-body">
-                <!-- Products will be dynamically added here -->
+                <!-- products will be dynamically added here -->
             </tbody>
         </table>
       </div>
@@ -147,7 +147,7 @@ if ($userInfoResult->num_rows > 0) {
     <div class="footer-section">
       <div></div>
       <p>Με την βοήθειά σου ,στηρίζεις τον καθημερινό διαμερισμό προιόντων σε ανθρώπους που το έχουν ανάγκη.Δώρισε σήμερα!</p>
-      <a href="requests.html" class="button">
+      <a href="announcementscitizen.php" class="button">
         <img src="donate.png" alt="Donate Now">
       </a>
     </div>
@@ -168,9 +168,9 @@ if ($userInfoResult->num_rows > 0) {
       <div class="column">
         <h3>Links</h3>
         <ul>
-          <li><a href="mainpagecitizen.html">Η Ομάδα Μας</a></li>
-          <li><a href="requests.html">Υπηρεσίες</a></li>
-          <li><a href="contact.html">Επικοινωνία</a></li>
+          <li><a href="mainpagecitizen.php">Η Ομάδα Μας</a></li>
+          <li><a href="requests.php">Υπηρεσίες</a></li>
+          <li><a href="contact.php">Επικοινωνία</a></li>
         </ul>
       </div>
       <div class="column">
