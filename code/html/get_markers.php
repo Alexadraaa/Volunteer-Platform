@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "alexistest";
+$database = "web";
 // Establish a database connection (replace with your database credentials)
 
 
