@@ -263,6 +263,48 @@ insert into base values
 (null,'leuka eidi','petsetes',500,300),
 (null,'leuka eidi','koubertes',500,350);
 
+INSERT INTO markers (latitude, longitude, type,activity) VALUES
+    (38.259332, 21.742084, 'vehicle','active'),
+    (38.258466, 21.742148, 'vehicle','active'),
+    (38.261054, 21.742815, 'vehicle','inactive'),
+    (38.259919, 21.742420, 'vehicle','inactive'),
+    (38.257557, 21.740869, 'vehicle','active'),
+    (38.257538, 21.740975, 'vehicle','active'),
+    (38.256489, 21.743893, 'vehicle','inactive'),
+    (38.256797, 21.743960, 'vehicle','inactive'),
+    (38.248974, 21.740610, 'vehicle','active'),
+    (38.248401, 21.740646, 'vehicle','active'),
+    (38.247355, 21.738236, 'vehicle','inactive'),
+    (38.241083, 21.730023, 'vehicle','inactive'),
+    (38.239516, 21.737859, 'vehicle','active'),
+    (38.239147, 21.738624, 'vehicle','active'),
+    (38.239994, 21.736696, 'vehicle','inactive'),
+    (38.244986, 21.737584, 'vehicle','inactive'),
+    (38.244995, 21.737606, 'vehicle','active'),
+    (38.246828, 21.739505, 'vehicle','active'),
+    (38.247989, 21.738657, 'vehicle','inactive'),
+    (38.248706, 21.737950, 'vehicle','inactive'),
+    (38.245859, 21.737307, 'offer','active'),
+    (38.246229, 21.737921, 'offer','inactive'),
+    (38.245366, 21.736732, 'request','active'),
+    (38.246195, 21.738122, 'request','inactive'),
+    (38.247384, 21.733300, 'offer','active'),
+    (38.241695, 21.737145, 'offer','inactive'),
+    (38.238562, 21.744439, 'request','active'),
+    (38.245376, 21.731618, 'request','inactive'),
+    (38.245501, 21.734247, 'offer','active'),
+    (38.246386, 21.733226, 'offer','inactive'),
+    (38.248481, 21.738422, 'request','active'),
+    (38.252726, 21.743470, 'request','inactive'),
+    (38.262831, 21.747970, 'offer','active'),
+    (38.263479, 21.748554, 'offer','inactive'),
+    (38.261913, 21.749527, 'request','active'),
+    (38.261024, 21.751666, 'request','inactive'),
+    (38.249399, 21.737755, 'offer','active'),
+    (38.241535, 21.728258, 'offer','inactive'),
+    (38.241532, 21.728258, 'request','active');
+    
+
 
 
 
