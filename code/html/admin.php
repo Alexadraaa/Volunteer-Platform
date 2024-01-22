@@ -209,7 +209,7 @@ function addMarkers(markerData) {
         var customIcon = getCustomIcon(marker.type,marker.activity);
 
         var newMarker = L.marker([marker.lat, marker.lng], { icon: customIcon }).bindPopup(marker.type);
-        getMarkersGroup(marker.type).addLayer(newMarker);
+        getMarkersGroup(marker.type,marker.activity).addLayer(newMarker);
     });
 
     // Add the marker groups to the map
