@@ -563,6 +563,7 @@ function addMarkers(markersData) {
                 var marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
                 marker.bindPopup('Order ID: ' + markerData.orderId + '<br>Address: ' + markerData.address).openPopup();
                 addMarkerToGroup(marker,markerData.markerType);
+                marker.addTo(map);
             } else {
                 console.error('Failed to geocode address:', markerData.address);
             }

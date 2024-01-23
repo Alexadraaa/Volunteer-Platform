@@ -34,7 +34,6 @@ create table base (
 product_id int not null auto_increment,
 category varchar(30) not null,
 product varchar(30) not null unique,
-max_num int not null,
 num int not null,
 primary key (product_id)
 );
@@ -82,6 +81,16 @@ constraint orid foreign key(re_or_id) references orders(or_id)
 on delete cascade on update cascade
 );
 
+CREATE TABLE markers (
+    marker_id int not NULL auto_increment,
+    latitude decimal(10, 6) NOT NULL,
+    longitude decimal(10, 6) NOT NULL,
+    marker_type enum('activeTaskCar', 'inactiveTaskCar', 'activeDonation', 'inactiveDonation', 'activeRequest', 'inactiveRequest') NOT NULL,
+    or_id INT,
+    primary key(marker_id),
+    foreign key(or_id) references orders(or_id) on delete set null
+);
+
 
 insert into users values
 ('1001','Marianthi','Thodi','Sostratou 15','6987562335','MThodi','Marianthi','admin',null),
@@ -108,32 +117,32 @@ insert into civilian values
 
 
 insert into base values
-('zymarika','makaronia',500,300),
-('zymarika','ryzi',500,400),
-('zymarika','lazania',500,200),
-('zymarika','xylopites',500,250),
-('zymarika','kritharaki',500,300),
-('zymarika','traxanas',500,450),
-('konserves','kalampoki',500,200),
-('konserves','tonos',500,250),
-('konserves','giganteskon',500,300),
-('konserves','ntolmantakia',500,150),
-('konserves','sardeles',500,450),
-('konserves','pikles',500,470),
-('ospria','fakes',500,300),
-('ospria','revithia',500,350),
-('ospria','fasolia',500,250),
-('galaktokomika','gala',500,300),
-('galaktokomika','tyri',500,350),
-('galaktokomika','giaourti',500,250),
-('psomi','xwriatiko',500,200),
-('psomi','tost',500,300),
-('psomi','olikis',500,150),
-('psomi','friganies',500,350),
-('alantika','loukaniko',500,400),
-('alantika','zampon',500,300),
-('alantika','galopoula',500,250),
-('alantika','aeros',500,210);
+('zymarika','makaronia',300),
+('zymarika','ryzi',400),
+('zymarika','lazania',200),
+('zymarika','xylopites',250),
+('zymarika','kritharaki',300),
+('zymarika','traxanas',450),
+('konserves','kalampoki',200),
+('konserves','tonos',250),
+('konserves','giganteskon',300),
+('konserves','ntolmantakia',150),
+('konserves','sardeles',450),
+('konserves','pikles',470),
+('ospria','fakes',300),
+('ospria','revithia',350),
+('ospria','fasolia',250),
+('galaktokomika','gala',300),
+('galaktokomika','tyri',350),
+('galaktokomika','giaourti',250),
+('psomi','xwriatiko',200),
+('psomi','tost',300),
+('psomi','olikis',150),
+('psomi','friganies',350),
+('alantika','loukaniko',400),
+('alantika','zampon',300),
+('alantika','galopoula',250),
+('alantika','aeros',210);
 
 insert into vehicle values
 (620,'alekos','fortosi');
