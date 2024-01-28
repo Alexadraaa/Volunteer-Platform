@@ -144,7 +144,9 @@ CREATE TABLE markers (
     longitude decimal(10, 6) NOT NULL,
     marker_type enum('activeTaskCar', 'inactiveTaskCar', 'activeDonation', 'inactiveDonation', 'activeRequest', 'inactiveRequest') NOT NULL,
     or_id INT,
+ve_id int,
     primary key(marker_id),
+constraint vemarkid foreign key(ve_id) references vehicle(ve_id) on delete cascade on update cascade,
     foreign key(or_id) references orders(or_id) on delete set null
 );
 
@@ -345,7 +347,28 @@ insert into orders values
 (null,3003,'2023-07-08','Προσφορά','Προς Παράδοση',703),
 (null,3003,'2023-07-08','Προσφορά','Προς Παράδοση',703);
 
-/*
+insert into markers values
+(null,38.239507700045884, 21.737859780583516,"activeTaskCar",null,620),
+(null,38.2592440858477, 21.74206245174889,"activeTaskCar",null,621),
+(null,38.24487733457579, 21.737573887138097,"activeTaskCar",null,622),
+(null,38.25750699261597, 21.740772480584425,"activeTaskCar",null,623),
+(null,38.257574438003864, 21.741119097776387,"activeTaskCar",null,624),
+(null,38.25849211396602, 21.742052065241904,"activeTaskCar",null,625),
+(null,38.256472443775195, 21.74388259592688,"activeTaskCar",null,626),
+(null,38.26102906012175, 21.742858840105352,"activeTaskCar",null,627),
+(null,38.25685331738669, 21.743902780584275,"activeTaskCar",null,628),
+(null,38.239532980299444, 21.737891967090434,"activeTaskCar",null,629),
+(null,38.24000315255063, 21.736653224761707,"activeTaskCar",null,630),
+(null,38.24832738841368, 21.740492887139315,"activeTaskCar",null,631),
+(null,38.24843538642809, 21.740668380583937,"activeTaskCar",null,632),
+(null,38.247355737208416, 21.738247524762084,"activeTaskCar",null,633),
+(null,38.259227236916345, 21.74213755359836,"activeTaskCar",null,634),
+(null,38.24105842375879, 21.72989515174794,"activeTaskCar",null,635),
+(null,38.248690483013256, 21.737376880584055,"activeTaskCar",null,636),
+(null,38.24679501245346, 21.739526624762114,"activeTaskCar",null,637),
+(null,38.24751891603827, 21.738701273646026,"activeTaskCar",null,638),
+(null,38.24844963492557, 21.738042197775947,"activeTaskCar",null,639);
+
 CREATE INDEX idx_username ON users (username);
 CREATE INDEX idx_address ON users (address);
 CREATE INDEX idx_role ON users (role);
