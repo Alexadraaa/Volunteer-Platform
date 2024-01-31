@@ -7,16 +7,65 @@ if (isset($_SESSION['user_id'])) {
   echo "User ID: $userId";
 
     // Fetch latitude and longitude for the logged-in user's vehicle from the markers table
-    $markerquery = "SELECT m.latitude, m.longitude, m.marker_type, o.or_id, o.or_date, o.or_type, o.order_state, t.t_id
+    $queryVehicle= "SELECT m.latitude,m.longitude,m.marker_type,v.ve_id,v.ve_username,t.t_id
     FROM markers m
     JOIN vehicle v ON m.ve_id = v.ve_id
+    JOIN tasks t ON m.ve_id = t.t_vehicle
     JOIN rescuer r ON v.ve_id = r.resc_ve_id
-    JOIN users u ON r.resc_id = u.user_id
-    LEFT JOIN tasks t ON m.ve_id = t.t_vehicle
-    LEFT JOIN orders o ON t.t_id = o.or_task_id
-    WHERE r.resc_id = $userId";
-$markerresult = mysqli_query($conn, $markerquery);
- } 
+    WHERE r.resc_id = $userId
+    AND( m.marker_type ='activeTaskCar' or m.marker_type='inactiveTaskCar')"; 
+$resultVehicle = mysqli_query($conn,$queryVehicle);
+
+if(!$resultVehicle){
+    die("Query failed: " . mysqli_error($conn));
+}
+
+ $queryActive= "SELECT u.name,u.lastname,u.phone,m.latitude,m.longitude,m.marker_type,v.ve_id,v.ve_username,o.or_type,o.or_date,o.or_id,o.order_state,t.t_id
+                from markers m 
+                join orders o on m.or_id=o.or_id 
+                join tasks t on o.or_task_id=t.t_id 
+                join vehicle v on t.t_vehicle=v.ve_id 
+                join rescuer r on r.resc_ve_id=v.ve_id 
+                join users u on r.resc_id=u.user_id WHERE u.user_id=$userId 
+                AND( m.marker_type ='activeRequest' or m.marker_type='activeDonation')"; 
+$resultActive = mysqli_query($conn, $queryActive);
+
+if (!$resultActive) {
+    die("Query failed: " . mysqli_error($conn));
+}
+
+$queryInactive= "SELECT m.latitude, m.longitude, m.marker_type,o.or_type, o.or_date,o.or_id,o.order_state,u.name, u.lastname, u.phone 
+FROM markers m 
+JOIN orders o ON m.or_id = o.or_id 
+JOIN users u ON o.or_c_id = u.user_id 
+WHERE m.marker_type='inactiveRequest' or m.marker_type='inactiveDonation'";
+$resultInactive = mysqli_query($conn,$queryInactive);
+
+if(!$resultInactive){
+    die("Query failed: " . mysqli_error($conn));
+}
+
+
+$rows = [];
+
+
+while ($rowVehicle = mysqli_fetch_assoc($resultVehicle)) {
+$rows[] = $rowVehicle;
+}
+
+while($rowActive = mysqli_fetch_assoc($resultActive)){
+$rows[] = $rowActive;
+}
+
+while ($rowInactive = mysqli_fetch_assoc($resultInactive)) {
+    $rows[] = $rowInactive;
+}
+
+} else {
+header("Location: initialpage.php");
+
+}
+
  
 ?>
 
@@ -25,7 +74,7 @@ $markerresult = mysqli_query($conn, $markerquery);
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Rescuer_test</title>
+        <title>Rescuer</title>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
         <script src="https://unpkg.com/draggablejs@1.1.0/lib/draggable.bundle.legacy.min.js"></script> 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnMBeBA0mgvQvW2SIliuCDZ0gfFusdVGE&libraries=places" defer></script>
@@ -213,7 +262,7 @@ color: #fff;
   border-collapse: collapse;
 }
 
-.popuptable button{
+.TableButton{
     width: 100%;
     margin-top: 10px;
     padding: 10px 0;
@@ -225,7 +274,18 @@ color: #fff;
     border-radius: 5px;
     cursor: pointer;
 }
-
+.doneButton{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 0;
+    background-color: #33FF6B;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 #close-btn {
             position: absolute;
             top: 1px;
@@ -234,6 +294,34 @@ color: #fff;
             color: #000;
             cursor: pointer;
         }
+        .takebutton {
+        background-color: rgba(50, 212, 9, 0.938); 
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        font-size: 14px;
+        margin: 10px auto; 
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .dropbutton {
+        background-color: rgb(212, 9, 9); 
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        font-size: 14px;
+        margin: 10px auto; 
+        cursor: pointer;
+        border-radius: 5px; 
+    }
+
 
 </style>
 </head>
@@ -395,6 +483,18 @@ function createOrdersTable(orders) {/*
                         "<td>" + order.or_type + "</td>" +
                         "<td>" + order.order_state + "</td>";
 
+    var cell = document.createElement("td");
+
+    var doneButton = document.createElement("button");
+    doneButton.className = "doneButton";
+    doneButton.innerText = "Done";
+
+    doneButton.onclick = function() {
+        DoneOrderButton(order.or_id);
+    };
+    cell.appendChild(doneButton);
+    row.appendChild(cell);
+    
         ordersTableBody.appendChild(row);
     });
     ordersTable.appendChild(tableBody);
@@ -464,64 +564,60 @@ function dragElement(elmnt) {
 
 
 function initMap() {
-            var map = L.map('map').setView([38.2488, 21.7345], 16);
+   var map = L.map('map').setView([38.2488, 21.7345], 16);
 
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-            var markers = [];
+        var markersData = <?php echo json_encode($rows); ?>;
 
-            // Iterate through the fetched data and add markers to an array
-            <?php
-            while ($markerRow = mysqli_fetch_assoc($markerresult)) {
-                $latitude = $markerRow['latitude'];
-                $longitude = $markerRow['longitude'];
-                $markerType = $markerRow['marker_type'];
-                $orderId = $markerRow['or_id'];
-                $orderDate = $markerRow['or_date'];
-                $orderType = $markerRow['or_type'];
-                $orderState = $markerRow['order_state'];
-                $taskId = $markerRow['t_id'];
-            ?>
-                // Define custom icons based on marker type
-                var iconUrl = '';
-                switch ('<?php echo $markerType; ?>') {
-                    case 'activeTaskCar':
-                        iconUrl = 'bluecar.png';
-                        break;
-                    case 'inactiveTaskCar':
-                        iconUrl = 'yellowcar.png';
-                        break;
-                    case 'activeRequest':
-                        iconUrl = 'greenrequest.png';
-                        break;
-                    case 'inactiveRequest':
-                        iconUrl = 'orangerequest.png';
-                        break;
-                    case 'activeDonation':
-                        iconUrl = 'greendonate.png';
-                        break;  
-                    case 'inactiveDonation':
-                        iconUrl = 'orangedonate.png';
-                        break;      
-                    // Add more cases as needed for other marker types
-                    default:
-                        // Default icon
-                        iconUrl = 'bluecar.png';
-                }
+        var markers = [];
 
-                var customIcon = L.icon({
-                    iconUrl: iconUrl,
-                    iconSize: [32, 32],
-                    iconAnchor: [16, 32],
-                    popupAnchor: [0, -32]
-                });
+        for (var i = 0; i < markersData.length; i++) {
+            var data = markersData[i];
 
-                var marker = L.marker([<?php echo $latitude; ?>, <?php echo $longitude; ?>], { icon: customIcon }).addTo(map);
+            // Define custom icons based on marker type
+            var iconUrl = '';
+            switch (data.marker_type) {
+                case 'activeTaskCar':
+                    iconUrl = 'bluecar.png';
+                    break;
+                case 'inactiveTaskCar':
+                    iconUrl = 'yellowcar.png';
+                    break;
+                case 'activeRequest':
+                    iconUrl = 'greenrequest.png';
+                    break;
+                case 'inactiveRequest':
+                    iconUrl = 'orangerequest.png';
+                    break;
+                case 'activeDonation':
+                    iconUrl = 'greendonate.png';
+                    break;
+                case 'inactiveDonation':
+                    iconUrl = 'orangedonate.png';
+                    break;
+                default:
+                    // Default icon
+                    iconUrl = 'bluecar.png';
+            }
 
-            
-            <?php } ?>
+            var customIcon = L.icon({
+                iconUrl: iconUrl,
+                iconSize: [32, 32],
+                iconAnchor: [16, 32],
+                popupAnchor: [0, -32]
+            });
+
+            var marker = L.marker([data.latitude, data.longitude], { icon: customIcon }).addTo(map);
+
+            // Add a popup to the marker with information
+            marker.bindPopup(getPopupContent(data));
+    
+            markers.push(marker);
+        }
+    
             var base = L.icon({
    iconUrl: 'home.png',
 
@@ -535,6 +631,126 @@ L.marker([38.246644, 21.734562], { icon: base }).addTo(map);
             
 
         }
+      
+        function getPopupContent(data) {
+    switch (data.marker_type) {
+        case 'activeTaskCar':
+            return "Resquer Vehicle name: " + data.ve_username +
+                   "<br>Vehicle ID: " + data.ve_id +
+                   "<br>Task ID: " + data.t_id;
+        case 'inactiveTaskCar':
+            return "Resquer Vehicle name: " + data.ve_username +
+                   "<br>Date: " + data.ve_id ;
+        case 'activeRequest':
+            return "Active Request: Order ID: " + data.or_id +
+                   "<br>Name: " + data.name +
+                   "<br>LastName: " + data.lastname +
+                   "<br>Phone: " + data.phone +
+                   "<br>Asigned Vehicle: " + data.ve_username +
+                   "<br>Date: " + data.or_date +
+                   "<br>Type: " + data.or_type +
+                   "<br>State: " + data.order_state +
+                   "<br>Task ID: " + data.t_id+
+                   "<br><button class='dropbutton' onclick='DropButton(" + data.or_id + ")'>Drop</button>";
+        case 'inactiveRequest':
+            return "Inactive Request: Order ID: " + data.or_id +
+                   "<br>Name: " + data.name +
+                   "<br>LastName: " + data.lastname +
+                   "<br>Phone: " + data.phone +
+                   "<br>Date: " + data.or_date +
+                   "<br>Type: " + data.or_type +
+                   "<br>State: " + data.order_state +
+                   "<br><button class='takebutton' onclick='TakeButton(" + data.or_id + ")'>Take</button>";
+        case 'activeDonation':
+            return "Active Donation: Order ID: " + data.or_id +
+                   "<br>Name: " + data.name +
+                   "<br>LastName: " + data.lastname +
+                   "<br>Phone: " + data.phone +
+                   "<br>Asigned Vehicle: " + data.ve_username +
+                   "<br>Date: " + data.or_date +
+                   "<br>Type: " + data.or_type +
+                   "<br>State: " + data.order_state +
+                   "<br>Task ID: " + data.t_id+
+                   "<br><button class='dropbutton' onclick='DropButton(" + data.or_id + ")'>Drop</button>";
+        case 'inactiveDonation':
+            return "Inactive Donation: Order ID: " + data.or_id +
+                   "<br>Name: " + data.name +
+                   "<br>LastName: " + data.lastname +
+                   "<br>Phone: " + data.phone +
+                   "<br>Date: " + data.or_date +
+                   "<br>Type: " + data.or_type +
+                   "<br>State: " + data.order_state +
+                   "<br><button class='takebutton' onclick='TakeButton(" + data.or_id + ")'>Take</button>";
+        default:
+            return 'Default Popup: Order ID ' + data.or_id;
+    }
+}
+
+function TakeButton(orderId) {
+    // Create a new XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+
+    // Specify the request method, URL, and set it to be asynchronous
+    xhr.open("POST", "take_order.php", true);
+
+    // Set the request header
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    // Define the callback function to handle the response from the server
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Handle the response from the server
+            console.log(xhr.responseText);
+        }
+    };
+
+    // Send the request to the server with the order ID as data
+    xhr.send("order_id=" + orderId);
+}
+
+function DropButton(orderId) {
+    // Create a new XMLHttpRequest object
+    var xhr = new XMLHttpRequest();
+
+    // Specify the request method, URL, and set it to be asynchronous
+    xhr.open("POST", "drop_order.php", true);
+
+    // Set the request header
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    // Define the callback function to handle the response from the server
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Handle the response from the server
+            console.log(xhr.responseText);
+        }
+    };
+
+    // Send the request to the server with the order ID as data
+    xhr.send("order_id=" + orderId);
+}
+
+function DoneOrderButton(orderId){
+        // Create a new XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+
+// Specify the request method, URL, and set it to be asynchronous
+xhr.open("POST", "done_order.php", true);
+
+// Set the request header
+xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+// Define the callback function to handle the response from the server
+xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        // Handle the response from the server
+        console.log(xhr.responseText);
+    }
+};
+
+// Send the request to the server with the order ID as data
+xhr.send("order_id=" + orderId);
+}
 
         initMap();
 
