@@ -107,7 +107,6 @@ o_c_id int not null,
 o_an_id int not null,
 o_pr_id int not null,
 o_number int not null,
-o_ve_state enum('Σε επεξεργασία','Προς Παράδοση','Παραδόθηκε') not null,
 o_or_id int not null,    
 primary key(o_id),
 constraint ciid foreign key(o_c_id) references civilian(c_id)
@@ -381,4 +380,13 @@ grant all privileges on web.* to 'AGian'@'%';
 
 
 
-
+insert into markers(latitude,longitude,marker_type,or_id)VALUES
+(38.247393266423245, 21.733235711269046,'activeRequest',2),
+(38.2417549079717, 21.737103553597407,'activeRequest',3),
+(38.2417549079717, 21.737103553597407,'activeRequest',6),
+(38.2417549079717, 21.737103553597407,'activeDonation',7),
+(38.2417549079717, 21.737103553597407,'activeRequest',8),
+(38.2417549079717, 21.737103553597407,'activeDnation',9),
+(38.2417549079717, 21.737103553597407,'activeDonation',10),
+(38.24832700943399, 21.73941381126905,'activeRequest',4),
+(38.2386470897419, 21.74443998058342,'activeDonation',5);
