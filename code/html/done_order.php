@@ -14,14 +14,23 @@ if (isset($_POST['order_id'])) {
     $update_order_query = "UPDATE orders SET order_state = 'Παραδόθηκε' WHERE or_id = $order_id";
     $delete_from_order_query = "UPDATE orders SET or_task_id = NULL WHERE or_id = $order_id";
     if($order_type="Αίτημα"){
-        $delete_from_requests = "DELETE from requests where re_or_id=$order_id";
+        $update_base_req = "UPDATE base set base.num = 
+        (select b.num-r.re_number from base b
+        join requests r on b.product_id=r.re_pr_id
+        join orders o on r.re_or_id=o.or_id
+        where or_id=$order_id)";
     }
     elseif($order_type="Προσφορά"){
-    $delete_from_offers = "DELETE from offers where o_or_id=$order_id";
+    $update_base_of = "UPDATE base set base.num =
+    (select b.num+of.o_number
+    from base b 
+    join offers of on b.product_id=of.o_pr_id
+    join orders o on of.o_or_id=o.or_id
+    where or_id=$order_id)";
     }
 
     if (mysqli_query($conn,$update_order_query) && mysqli_query($conn, $delete_from_order_query)
-     && mysqli_query($conn,$delete_from_requests) && mysqli_query($conn,$delete_from_offers) ){
+     && mysqli_query($conn,$update_base_req) && mysqli_query($conn,$update_base_of) ){
         echo "Order updated successfully";
     } else {
         echo "Error updating order " . mysqli_error($conn);
