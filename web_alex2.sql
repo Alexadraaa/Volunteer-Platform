@@ -64,7 +64,7 @@ create table announcement_product_mapping (
  create table vehicle (
 ve_id int not null auto_increment,
 ve_username varchar(30) not null unique,
-ve_state enum('fortosi','ekfortosi','ontheroad'),
+ve_state enum('fortosi','ekfortosi','ontheroad','onhold'),
 primary key(ve_id)
 );
 
@@ -80,7 +80,7 @@ on delete cascade on update cascade
 
 create table tasks(
 t_id int not null auto_increment,
-t_state enum('done','onhold','inprocess') not null,
+t_state enum('done','inprocess') not null,
 t_date date not null,
 t_vehicle int,
 primary key(t_id),
@@ -141,7 +141,7 @@ CREATE TABLE markers (
     marker_id int not NULL auto_increment,
     latitude decimal(10, 6) NOT NULL,
     longitude decimal(10, 6) NOT NULL,
-    marker_type enum('activeTaskCar', 'inactiveTaskCar', 'activeDonation', 'inactiveDonation', 'activeRequest', 'inactiveRequest') NOT NULL,
+    marker_type enum('activeTaskCar', 'inactiveTaskCar', 'activeDonation', 'inactiveDonation', 'activeRequest', 'inactiveRequest','base') NOT NULL,
     or_id INT,
 ve_id int,
     primary key(marker_id),
@@ -386,7 +386,8 @@ insert into markers(latitude,longitude,marker_type,or_id)VALUES
 (38.2417549079717, 21.737103553597407,'activeRequest',6),
 (38.2417549079717, 21.737103553597407,'activeDonation',7),
 (38.2417549079717, 21.737103553597407,'activeRequest',8),
-(38.2417549079717, 21.737103553597407,'activeDnation',9),
+(38.2417549079717, 21.737103553597407,'activeDonation',9),
 (38.2417549079717, 21.737103553597407,'activeDonation',10),
 (38.24832700943399, 21.73941381126905,'activeRequest',4),
-(38.2386470897419, 21.74443998058342,'activeDonation',5);
+(38.2386470897419, 21.74443998058342,'activeDonation',5),
+(38.245823, 21.735651,'base',null);
