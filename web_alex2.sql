@@ -70,7 +70,7 @@ primary key(ve_id)
 
 create table rescuer (
 resc_id int not null,
-resc_ve_id int not null,
+resc_ve_id int,
 primary key(resc_id),
 constraint sid foreign key(resc_id) references users(user_id) 
 on delete cascade on update cascade,
