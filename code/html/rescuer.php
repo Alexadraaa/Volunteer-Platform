@@ -4,65 +4,7 @@ session_start();
 include("connection.php");
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
-  echo "User ID: $userId";
-
-    // Fetch latitude and longitude for the logged-in user's vehicle from the markers table
-    $queryVehicle= "SELECT m.latitude,m.longitude,m.marker_type,v.ve_id,v.ve_username,t.t_id
-    FROM markers m
-    JOIN vehicle v ON m.ve_id = v.ve_id
-    JOIN tasks t ON m.ve_id = t.t_vehicle
-    JOIN rescuer r ON v.ve_id = r.resc_ve_id
-    WHERE r.resc_id = $userId
-    AND( m.marker_type ='activeTaskCar' or m.marker_type='inactiveTaskCar')"; 
-$resultVehicle = mysqli_query($conn,$queryVehicle);
-
-if(!$resultVehicle){
-    die("Query failed: " . mysqli_error($conn));
-}
-
- $queryActive= "SELECT u.name,u.lastname,u.phone,m.latitude,m.longitude,m.marker_type,v.ve_id,v.ve_username,o.or_type,o.or_date,o.or_id,o.order_state,t.t_id
-                from markers m 
-                join orders o on m.or_id=o.or_id 
-                join tasks t on o.or_task_id=t.t_id 
-                join vehicle v on t.t_vehicle=v.ve_id 
-                join rescuer r on r.resc_ve_id=v.ve_id 
-                join users u on r.resc_id=u.user_id WHERE u.user_id=$userId 
-                AND( m.marker_type ='activeRequest' or m.marker_type='activeDonation')"; 
-$resultActive = mysqli_query($conn, $queryActive);
-
-if (!$resultActive) {
-    die("Query failed: " . mysqli_error($conn));
-}
-
-$queryInactive= "SELECT m.latitude, m.longitude, m.marker_type,o.or_type, o.or_date,o.or_id,o.order_state,u.name, u.lastname, u.phone 
-FROM markers m 
-JOIN orders o ON m.or_id = o.or_id 
-JOIN users u ON o.or_c_id = u.user_id 
-WHERE m.marker_type='inactiveRequest' or m.marker_type='inactiveDonation'";
-$resultInactive = mysqli_query($conn,$queryInactive);
-
-if(!$resultInactive){
-    die("Query failed: " . mysqli_error($conn));
-}
-
-
-$rows = [];
-
-
-while ($rowVehicle = mysqli_fetch_assoc($resultVehicle)) {
-$rows[] = $rowVehicle;
-}
-
-while($rowActive = mysqli_fetch_assoc($resultActive)){
-$rows[] = $rowActive;
-}
-
-while ($rowInactive = mysqli_fetch_assoc($resultInactive)) {
-    $rows[] = $rowInactive;
-}
-
-} else {
-header("Location: initialpage.php");
+//  echo "User ID: $userId";
 
 }
 
@@ -323,13 +265,122 @@ color: #fff;
     }
 
 
+    #markers {
+          display: flex;
+          align-items: center;
+          position: absolute;
+          top: 10px; 
+          right: 70px; 
+          z-index: 5; 
+          
+        }
+
+        #imageButton1 {
+          position: absolute;
+          top: 30px;
+          right: 20px; 
+          border: none;
+          background: none;
+          cursor: pointer;
+         }
+
+        #imageButton1 img {
+           width: 40px;
+           height: 40px; 
+           object-fit: contain; 
+       }
+
+       #markerstoggle {
+          display: none; 
+          position: absolute;
+          background-color: hsl(0, 20%, 98%);
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 5;
+          top: 70px; 
+          right: 0;
+      }
+
+       #markerstoggle button {
+         color: #fff;
+         padding: 12px 12px;
+         text-decoration: none;
+         display: block;
+         transition: 0.3s;
+         width: 100%;
+         text-align: left;
+         font-size: 8px;
+       }
+
+       #markerstoggle button:hover {
+         background-color: #f1f1f1;
+         color: #111;
+       }
+
+       #markerstoggle img {
+        width: 20px; 
+        height: 20px;
+        margin-right: 8px;
+        object-fit: contain;
+      }
+
+      .marker-button {
+        background-color: white;
+       color: black;
+}
+
+/* Add these styles to your existing styles */
+#toggleMarkersBtn1,
+#toggleMarkersBtn2,
+#toggleMarkersBtn3,
+#toggleMarkersBtn4,
+#toggleMarkersBtn5,
+#toggleMarkersBtn6,
+#toggleMarkersBtn7 {
+        background-color: rgb(12, 45, 109);
+        color: #fff;
+        border: none;
+        padding: 10px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+}
+
+#toggleMarkersBtn1:hover,
+#toggleMarkersBtn2:hover,
+#toggleMarkersBtn3:hover,
+#toggleMarkersBtn4:hover,
+#toggleMarkersBtn5:hover,
+#toggleMarkersBtn6:hover,
+#toggleMarkersBtn7:hover {
+        background-color: #2980b9;
+}
+#button-container {
+            position: fixed;
+            bottom: 150px; /* Adjust the value to move the button higher */
+            right: 10px;
+            z-index: 1000;
+        }
+#perform-action-button {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            border: none; /* No border */
+            padding: 10px 20px; /* Padding */
+            text-align: center; /* Center text */
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px; /* Rounded corners */
+            z-index: 4;
+        }
+
 </style>
 </head>
 <body>
     <header>
         <h1>Διασώστης</h1>
     </header>
-
 
     <div id="user-container">
         <button id="imageButton" onclick="toggleUserMenu()">
@@ -380,8 +431,44 @@ color: #fff;
         </tbody>
     </table>
 </div>
-     
-          
+
+<div id="markers">
+    <button id="imageButton1" onclick="toggleMarkers()">
+        <img src="toggle.png" alt="Markers Pins">
+    </button>
+    <div id="markerstoggle" class="dropdown-content">
+    <button id="toggleMarkersBtn1" class="marker-button" data-marker-group="markersGroupActiveTaskCar">
+    <img class="icon-next-to-button" src="bluecar.png" alt="ActiveTaskCar Icon">
+    Toggle ActiveTaskCar
+</button>
+
+<button id="toggleMarkersBtn2" class="marker-button" data-marker-group="markersGroupInactiveTaskCar">
+    <img class="icon-next-to-button" src="yellowcar.png" alt="InactiveTaskCar Icon">
+    Toggle InactiveTaskCar
+</button>
+
+<button id="toggleMarkersBtn3" class="marker-button" data-marker-group="markersGroupActiveDonation">
+    <img class="icon-next-to-button" src="greendonate.png" alt="ActiveDonation Icon">
+    Toggle ActiveDonation
+</button>
+
+<button id="toggleMarkersBtn4" class="marker-button" data-marker-group="markersGroupInactiveDonation">
+    <img class="icon-next-to-button" src="orangedonate.png" alt="InactiveDonation Icon">
+    Toggle InactiveDonation
+</button>
+
+<button id="toggleMarkersBtn5" class="marker-button" data-marker-group="markersGroupActiveRequest">
+    <img class="icon-next-to-button" src="greenrequest.png" alt="ActiveRequest Icon">
+    Toggle ActiveRequest
+</button>
+
+<button id="toggleMarkersBtn6" class="marker-button" data-marker-group="markersGroupInactiveRequest">
+    <img class="icon-next-to-button" src="orangerequest.png" alt="InactiveRequest Icon">
+    Toggle InactiveRequest
+</button>
+
+    </div>
+</div>
 <div id="map"></div> 
 
 
@@ -395,7 +482,7 @@ function triggerTasksTable() {
     $.ajax({
         type: "GET",
         url: "fetch_tasks.php",
-        data: { userId: <?php echo $userId; ?> },
+        data: { userId: <?php echo json_encode($userId); ?> },
         dataType: "json", 
         success: function(response) {
             if (response.success) {
@@ -561,78 +648,206 @@ function dragElement(elmnt) {
 }
 
 
+function toggleUserMenu() {
+    var userMenu = document.getElementById('userMenu');
+    userMenu.style.display = (userMenu.style.display === 'block') ? 'none' : 'block';
+}
 
+function userContainerContains(element) {
+    var userContainer = document.getElementById('user-container');
+    return userContainer.contains(element);
+}
 
-function initMap() {
-   var map = L.map('map').setView([38.2488, 21.7345], 16);
+function toggleMarkers() {
+    var markerstoggle = document.getElementById('markerstoggle');
+    markerstoggle.style.display = (markerstoggle.style.display === 'block') ? 'none' : 'block';
+ 
+}
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+function markerstoggleContains(element) {
+    var markers = document.getElementById('markers');
+    return markers.contains(element);
+}
 
-        var markersData = <?php echo json_encode($rows); ?>;
+/*function toggleMap() {
+     var map = document.getElementById('map');
+     map.style.display = map.style.display === 'none' ? 'block' : 'none';}*/
 
-        var markers = [];
+function logout() {
+    window.location.href = 'initialpage.php';}
 
-        for (var i = 0; i < markersData.length; i++) {
-            var data = markersData[i];
+     
+var map = L.map('map').setView([38.2488, 21.7345], 14); 
 
-            // Define custom icons based on marker type
-            var iconUrl = '';
-            switch (data.marker_type) {
-                case 'activeTaskCar':
-                    iconUrl = 'bluecar.png';
-                    break;
-                case 'inactiveTaskCar':
-                    iconUrl = 'yellowcar.png';
-                    break;
-                case 'activeRequest':
-                    iconUrl = 'greenrequest.png';
-                    break;
-                case 'inactiveRequest':
-                    iconUrl = 'orangerequest.png';
-                    break;
-                case 'activeDonation':
-                    iconUrl = 'greendonate.png';
-                    break;
-                case 'inactiveDonation':
-                    iconUrl = 'orangedonate.png';
-                    break;
-                default:
-                    // Default icon
-                    iconUrl = 'bluecar.png';
-            }
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+}).addTo(map);
 
-            var customIcon = L.icon({
-                iconUrl: iconUrl,
-                iconSize: [32, 32],
-                iconAnchor: [16, 32],
-                popupAnchor: [0, -32]
-            });
-
-            var marker = L.marker([data.latitude, data.longitude], { icon: customIcon }).addTo(map);
-
-            // Add a popup to the marker with information
-            marker.bindPopup(getPopupContent(data));
-    
-            markers.push(marker);
+function fetchMarkers() {
+    $.ajax({
+        url: 'get_markersRescuer.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            console.log('Fetched markers:', data);
+            addMarkers(data);
+        },
+        error: function(error) {
+            console.error('Error fetching markers:', error);
         }
-    
-            var base = L.icon({
-   iconUrl: 'home.png',
+    });
+}
 
-   iconSize:     [30, 30], // size of the icon
-   iconAnchor:   [20, 15], // point of the icon which will correspond to marker's location
-   popupAnchor:  [-5, -10] // point from which the popup should open relative to the iconAnchor
+// Declare vehicleMarker outside the loop to ensure its scope
+//var vehicleMarker;
+
+function addMarkers(markersData) {
+   // var vehiclemarker = [];
+   var vehicleMarker=[];
+   //var marker;
+    console.log(markersData.marker_type);
+    markersData.forEach(function(markerData) {
+        var marker_id= markerData.marker_id;
+        console.log(marker_id);
+        var latitude = markerData.latitude;  
+        console.log(latitude);
+        var longitude = markerData.longitude;
+        console.log(longitude);
+        var draggable = markerData.marker_type === 'activeTaskCar';  
+        if (latitude !== null && longitude !== null) {
+            console.log(markerData.marker_type);
+            var customIcon = getIconWhenFetchingMarkers(markerData.marker_type);
+           var marker = L.marker([latitude, longitude], { icon: customIcon, draggable: draggable }).addTo(map);
+            marker.bindPopup(getPopupContent(markerData));
+            if(markerData.marker_type!=='base'){
+            addMarkerToGroup(marker, markerData.marker_type);}
+            marker.addTo(map);
+            if (draggable) {
+                vehicleMarker.push(marker);
+                marker.on('dragend', function (event) {
+                    var newCoords = event.target.getLatLng();
+                  console.log(markerData.marker_id);
+                    updateMarkerCoordinates(markerData.marker_id, newCoords.lat, newCoords.lng);
+                   //checkDistanceAndDisplayButton(marker, markersData);
+                });
+            }
+        } else {
+            console.error('Latitude and/or Longitude missing for Order ID:', markerData.or_id);
+        }
+
+    });
+}
+
+// Function to update marker coordinates in the database
+function updateMarkerCoordinates(markerId, newLatitude, newLongitude) {
+        // Make an AJAX request to update the coordinates
+        console.log("eeeeeeee");
+        console.log(markerId);
+        $.ajax({
+            url: 'update_marker_cordinates.php',
+            type: 'POST',
+            data: {
+                marker_id: markerId,
+                latitude: newLatitude,
+                longitude: newLongitude
+            },
+            success: function (response) {
+                console.log("Coordinates Updated:", response);
+            },
+            error: function (xhr, status, error) {
+                console.error("Error Updating Coordinates:", status, error);
+            }
+        });
+    }
+
+
+// Custom Icon for Markers
+var baseIcon = L.icon({
+    iconUrl: '../html/home.png',
+    iconSize: [30, 30],
+    iconAnchor: [20, 15],
+    popupAnchor: [-5, -10]
 });
 
-L.marker([38.245823, 21.735651], { icon: base }).addTo(map);
-L.marker([38.246644, 21.734562], { icon: base }).addTo(map);
-            
+// Custom Icon for Markers
+var activeTaskCarIcon = L.icon({
+    iconUrl: '../html/bluecar.png',
+    iconSize: [30, 30],
+    iconAnchor: [20, 15],
+    popupAnchor: [-5, -10]
+});
 
-        }
-      
-        function getPopupContent(data) {
+// Custom Icon for Markers
+var inactiveTaskCarIcon = L.icon({
+    iconUrl: 'yellowcar.png',
+    iconSize: [30, 30],
+    iconAnchor: [20, 15],
+    popupAnchor: [-5, -10]
+});
+
+// Custom Icon for Markers
+var activeDonationIcon = L.icon({
+    iconUrl: 'greendonate.png',
+    iconSize: [30, 30],
+    iconAnchor: [20, 15],
+    popupAnchor: [-5, -10]
+});
+
+// Custom Icon for Markers
+var inactiveDonationIcon = L.icon({
+    iconUrl: 'orangedonate.png',
+    iconSize: [30, 30],
+    iconAnchor: [20, 15],
+    popupAnchor: [-5, -10]
+});
+
+// Custom Icon for Markers
+var activeRequestIcon = L.icon({
+    iconUrl: 'greenrequest.png',
+    iconSize: [30, 30],
+    iconAnchor: [20, 15],
+    popupAnchor: [-5, -10]
+});
+
+// Custom Icon for Markers
+var inactiveRequestIcon = L.icon({
+    iconUrl: 'orangerequest.png',
+    iconSize: [30, 30],
+    iconAnchor: [20, 15],
+    popupAnchor: [-5, -10]
+});
+
+var markersGroupActiveTaskCar = L.layerGroup();
+var markersGroupInactiveTaskCar = L.layerGroup();
+var markersGroupActiveDonation = L.layerGroup();
+var markersGroupInactiveDonation = L.layerGroup();
+var markersGroupActiveRequest = L.layerGroup();
+var markersGroupInactiveRequest = L.layerGroup();
+
+
+
+function getIconWhenFetchingMarkers(markerType) {
+    switch (markerType) {
+        case 'base':
+            return baseIcon;
+        case 'activeTaskCar':
+            return activeTaskCarIcon;
+        case 'inactiveTaskCar':
+            return inactiveTaskCarIcon;
+        case 'activeDonation':
+            return activeDonationIcon;
+        case 'inactiveDonation':
+            return inactiveDonationIcon;
+        case 'activeRequest':
+            return activeRequestIcon;
+        case 'inactiveRequest':
+            return inactiveRequestIcon;
+        default:
+            return baseIcon; 
+    }
+}
+
+function getPopupContent(data) {
     switch (data.marker_type) {
         case 'activeTaskCar':
             return "Resquer Vehicle name: " + data.ve_username +
@@ -752,8 +967,149 @@ xhr.onreadystatechange = function () {
 xhr.send("order_id=" + orderId);
 }
 
-        initMap();
+function toggleMarkersGroup(group) {
+    if (map.hasLayer(group)) {
+        map.removeLayer(group);
+    } else {
+        map.addLayer(group);
+    }
+}
 
+function addMarkerToGroup(marker, markerType) {
+    console.log('Adding marker to group:', markerType);
+    console.log('Marker:', marker);
+    switch (markerType) {
+        case 'activeTaskCar':
+            markersGroupActiveTaskCar.addLayer(marker);
+            break;
+        case 'inactiveTaskCar':
+            markersGroupInactiveTaskCar.addLayer(marker);
+            break;
+        case 'activeDonation':
+            markersGroupActiveDonation.addLayer(marker);
+            break;
+        case 'inactiveDonation':
+            markersGroupInactiveDonation.addLayer(marker);
+            break;
+        case 'activeRequest':
+            markersGroupActiveRequest.addLayer(marker);
+            break;
+        case 'inactiveRequest':
+            markersGroupInactiveRequest.addLayer(marker);
+            break;
+        default:
+            console.error('Invalid marker type:', markerType);
+    }
+}
+
+
+var toggleMarkersButton1 = document.getElementById('toggleMarkersBtn1');
+toggleMarkersButton1.addEventListener('click', function () {
+    console.log('Markers Group Active Task Car:', markersGroupActiveTaskCar);
+    toggleMarkersGroup(markersGroupActiveTaskCar);
+});
+
+var toggleMarkersButton2 = document.getElementById('toggleMarkersBtn2');
+toggleMarkersButton2.addEventListener('click', function () {
+    toggleMarkersGroup(markersGroupInactiveTaskCar);
+});
+
+var toggleMarkersButton3 = document.getElementById('toggleMarkersBtn3');
+toggleMarkersButton3.addEventListener('click', function () {
+    toggleMarkersGroup(markersGroupActiveDonation);
+});
+
+var toggleMarkersButton4 = document.getElementById('toggleMarkersBtn4');
+toggleMarkersButton4.addEventListener('click', function () {
+    toggleMarkersGroup(markersGroupInactiveDonation);
+});
+
+var toggleMarkersButton5 = document.getElementById('toggleMarkersBtn5');
+toggleMarkersButton5.addEventListener('click', function () {
+    toggleMarkersGroup(markersGroupActiveRequest);
+});
+
+var toggleMarkersButton6 = document.getElementById('toggleMarkersBtn6');
+toggleMarkersButton6.addEventListener('click', function () {
+    console.log('Markers Group Inactive Request:', markersGroupInactiveRequest);
+    toggleMarkersGroup(markersGroupInactiveRequest);
+});
+
+
+var buttonContainer = document.createElement('div'); // Container for the button
+    document.body.appendChild(buttonContainer);
+
+ // Function to check if the dragged activeTaskCar marker is within 100m of activeRequest or activeDonnation markers
+ function checkDistanceAndDisplayButton(draggedMarker, allMarkers) {
+    var vehicleCoords = draggedMarker.getLatLng();
+    var buttonContainer = document.getElementById('button-container');
+
+    var buttonVisible = false; // Flag to track button visibility
+    var activeMarkerType; // Variable to store the type of the active marker
+
+    allMarkers.forEach(function (markersData) {
+        if (markersData.marker_type !== 'activeTaskCar') {
+            var markerCoords = L.latLng(markersData.latitude, markersData.longitude);
+            var distance = vehicleCoords.distanceTo(markerCoords);
+
+            if (distance <= 100) {
+                // If the distance is within 100m, set the flag to true and store the marker type
+                buttonVisible = true;
+                activeMarkerType = markersData.marker_type;
+            }
+        }
+    });
+
+       // Toggle button visibility and display the button with the correct marker type
+       if (buttonVisible) {
+        displayButton(vehicleCoords, activeMarkerType);
+    } else {
+        buttonContainer.innerHTML = ''; // Clear the button container
+    }
+ }
+
+     // Function to display a button based on marker type
+     function displayButton(vehicleCoords, markerType) {
+        var buttonContainer = document.getElementById('button-container');
+
+        // Create the container if it doesn't exist
+        if (!buttonContainer) {
+            buttonContainer = document.createElement('div');
+            buttonContainer.id = 'button-container';
+            document.body.appendChild(buttonContainer);
+        }
+
+        var button = document.createElement('button');
+        button.id = 'perform-action-button'; // Add an ID for styling
+
+        // Customize button text and action based on marker type
+        switch (markerType) {
+            
+            case 'activeDonnation':
+                button.innerHTML = 'Perform Action for active Donation';
+                button.addEventListener('click', function () {
+                    // Add your action for inactiveDonnation
+                    console.log('Button clicked for activeDonnation Marker');
+                });
+                break;
+            case 'activeRequest':
+                button.innerHTML = 'Perform Action for active Request';
+                button.addEventListener('click', function () {
+                    // Add your action for inactiveDonnation
+                    console.log('Button clicked for activeRequest Marker');
+                });
+                break;
+
+            default:
+                // Handle other cases or do nothing
+                break;
+        }
+
+        buttonContainer.innerHTML = ''; // Clear previous buttons
+        buttonContainer.appendChild(button);
+    }
+
+fetchMarkers();
 
 </script>
 
