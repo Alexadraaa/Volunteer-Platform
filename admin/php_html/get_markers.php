@@ -1,4 +1,5 @@
 <?php
+// This file is used to display all markers on the map
 session_start();
 include("../../connection.php");
 

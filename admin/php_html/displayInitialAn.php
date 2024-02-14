@@ -1,5 +1,5 @@
 <?php
-// 
+// this file is used to display the initial announcements
 session_start();
 include("../../connection.php");
 

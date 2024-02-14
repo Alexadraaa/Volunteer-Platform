@@ -1,4 +1,5 @@
 <?php
+//main page for admin to view active and inactive orders and assign them to vehicles
 session_start();
 include("../../connection.php");
 

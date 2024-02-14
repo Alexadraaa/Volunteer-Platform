@@ -1,5 +1,5 @@
 <?php
-
+// search for a product or category in the database and return the results
 include("../../connection.php");
 
 $response = [];

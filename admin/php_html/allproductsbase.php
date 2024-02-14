@@ -1,4 +1,5 @@
 <?php
+// This file is used to display all products in the base table
 include("../../connection.php");
 
 $sql = "SELECT product, num FROM base";

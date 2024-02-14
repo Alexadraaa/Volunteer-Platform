@@ -1,4 +1,5 @@
 <?php
+// This file is used to insert a new marker into the database
 session_start();
 include("../../connection.php");
 

@@ -1,4 +1,5 @@
 <?php
+//page for the admin to create rescuers accounts and assign them to vehicles 
 session_start();
 include('../../connection.php');
 
@@ -76,7 +77,7 @@ if ($result) {
     <link rel="stylesheet" type="text/css" href="..\css\createrescuers.css">
     <script src="..\js\umf.js" ></script>
 
-    <title>Register Rescuer </title>
+    <title>Καταχώρηση Διασώστη </title>
 
 </head>
 
@@ -85,10 +86,10 @@ if ($result) {
         <h1>Δημιούργησε λογαριασμό για διασώστη</h1>
     </header>
 
-
+<!-- menu container -->
 <div id="menu-toggle" onclick="toggleMenu()">&#9776;</div>
 
-
+<!-- side menu container -->
 <div id="mySidenav">
     <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
     <a href="admin.php" onclick="toggleMenu()">Αρχική</a>
@@ -96,7 +97,7 @@ if ($result) {
     <a href="storage.php" onclick="toggleMenu()">Διαχείρηση Αποθήκης</a>
 </div>
 
-
+<!-- user container -->
 <div id="user-container">
 <button id="imageButton" onclick="toggleUserMenu()">
   <img src="../../img/alesis.jpg" alt="Button Image">

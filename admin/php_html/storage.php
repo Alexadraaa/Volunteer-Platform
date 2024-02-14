@@ -1,5 +1,5 @@
 <?php
-
+// php file to store new products
 session_start();
 include("../../connection.php");
 
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-  <!-- Menu Toggle Button -->
+  <!-- menu toggle button -->
   <div id="menu-toggle" onclick="toggleMenu()">&#9776;</div>
 
 

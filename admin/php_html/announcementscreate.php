@@ -1,4 +1,5 @@
 <?php
+//main page for admin to create announcements and view shortage products
 session_start();
 include("../../connection.php");
 $userId = $_SESSION['user_id'];

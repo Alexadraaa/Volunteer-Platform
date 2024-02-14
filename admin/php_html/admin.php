@@ -32,14 +32,14 @@
 </head>
 <body>
 
-    <!-- Menu Toggle Button -->
+    <!-- menu toggle button -->
     <div id="menu-toggle" onclick="toggleMenu()">&#9776;</div>
 
     <header>
         <h1>Διαχειριστής</h1>
     </header>
 
-    <!-- Side Navigation Menu -->
+    <!-- side navigation menu -->
     <div id="mySidenav">
         <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
         <a href="announcementscreate.php" onclick="toggleMenu()">Δημιουργία Ανακοινώσεων</a>
@@ -259,6 +259,7 @@ var markersGroupInactiveDonation = L.layerGroup();
 var markersGroupActiveRequest = L.layerGroup();
 var markersGroupInactiveRequest = L.layerGroup();
 
+// function to geocode an address and add a marker to the map
 function geocodeAddress(address, callback) {
     var modifiedAddress = address + ', Patras, Greece';
 
@@ -275,7 +276,7 @@ function geocodeAddress(address, callback) {
     });
 }
 
-
+// function to add a marker to the map when the admin  accept an order 
 function addMarker(orderId, address, orderType) {
     console.log('Adding marker for Order ID:', orderId, 'Address:', address);
     geocodeAddress(address, function (lat, lng) {
@@ -307,7 +308,7 @@ function removeOrderFromPopup(orderId) {
     $('#ordersPopup .popup-content table tr:has(td:contains(' + orderId + '))').remove();
 }
 
-
+// insert marker when the admin accept a order and display it into the map
 function insertMarkerIntoDatabase(latitude, longitude, markerType, orId) {
     $.ajax({
         url: 'insert_marker.php', 
@@ -326,6 +327,7 @@ function insertMarkerIntoDatabase(latitude, longitude, markerType, orId) {
         }
     });
 }
+// function to get the custom icon for the order type
 function getCustomIconForOrderType(orderType) {
     switch (orderType) {
         case 'Αίτημα':
@@ -337,6 +339,7 @@ function getCustomIconForOrderType(orderType) {
     }
 }
 
+// function to get the custom icon for the marker type
 function getIconWhenFetchingMarkers(markerType) {
     switch (markerType) {
         case 'activeTaskCar':
@@ -356,7 +359,7 @@ function getIconWhenFetchingMarkers(markerType) {
     }
 }
 
-
+// function to get the popup content for the marker
 document.addEventListener('DOMContentLoaded', function () {
         let isDragging = false;
         let offsetX, offsetY;
@@ -407,7 +410,7 @@ function toggleMenu() {
             }
 }
 
-
+// function to get the popup content for the marker
 function getPopupContent(data) {
     console.log(data.username);
     switch (data.marker_type) {
@@ -466,10 +469,8 @@ function getPopupContent(data) {
 }
 
 
-
+// update marker coordinates when the admin move the marker
 function updateMarkerCoordinates(markerId, newLatitude, newLongitude) {
-        console.log("eeeeeeee");
-        console.log(markerId);
         $.ajax({
             url: 'update_marker_cordinates.php',
             type: 'POST',
@@ -489,7 +490,7 @@ function updateMarkerCoordinates(markerId, newLatitude, newLongitude) {
 }
 
     // Function to check if the dragged activeTaskCar marker is within 100m of activeRequest or activeDonnation markers
-    function checkDistanceAndDisplayButton(draggedMarker, allMarkers) {
+function checkDistanceAndDisplayButton(draggedMarker, allMarkers) {
         var vehicleCoords = draggedMarker.getLatLng();
         var buttonContainer = document.getElementById('button-container');
 
@@ -515,8 +516,8 @@ function updateMarkerCoordinates(markerId, newLatitude, newLongitude) {
         }
     }
 
-    // Function to display a button based on marker type
-    function displayButton(vehicleCoords, markerType) {
+// Function to display a button based on marker type
+function displayButton(vehicleCoords, markerType) {
         var buttonContainer = document.getElementById('button-container');
 
         if (!buttonContainer) {
@@ -561,6 +562,7 @@ function updateMarkerCoordinates(markerId, newLatitude, newLongitude) {
         buttonContainer.appendChild(button);
     }
 
+// function to add markers to the map
 function addMarkers(markersData) {
     var vehicleMarker=[];
     markersData.forEach(function(markerData) {
@@ -648,6 +650,7 @@ function addMarkers(markersData) {
     map.lines = lines;
 }
 
+// update lines to the vehicle marker with the associated orders
 function updateLines(vehicleMarkers, lines) {
     var newCoords = vehicleMarkers[0].getLatLng();
 
@@ -677,6 +680,7 @@ function fetchMarkers() {
     });
 }
 
+// function to toggle the markers group
 function toggleMarkersGroup(group) {
     if (map.hasLayer(group)) {
         map.removeLayer(group);
@@ -685,6 +689,7 @@ function toggleMarkersGroup(group) {
     }
 }
 
+// function to add a marker to a group
 function addMarkerToGroup(marker, markerType) {
     switch (markerType) {
         case 'activeTaskCar':

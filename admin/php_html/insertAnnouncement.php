@@ -1,4 +1,5 @@
 <?php
+// This file is used to insert a new announcement into the database and map it to the selected products in the base table 
 // Fetch markers data for rescuer
 session_start();
 include("../../connection.php");

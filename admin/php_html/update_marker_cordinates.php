@@ -1,5 +1,6 @@
 <?php
 session_start();
+// update the markers vehicle coordinates when the vehicle moves to a new location
 include("../../connection.php");
 
 
