@@ -93,6 +93,7 @@ mysqli_close($conn);
         </button>
     </div>
 
+    <!-- table for displaying orders -->
 <div id="main-content">
   <table id="orderTable">
     <thead>
@@ -120,7 +121,7 @@ mysqli_close($conn);
       <img src="../../img/donate.png" alt="Donate Now">
   </a>
   </div>
-      <hr class="divider"> <!-- Add a horizontal line as a divider -->
+      <hr class="divider"> 
       <div class="section2">
               <div class="column">
                 <h3>Επικοινωνία</h3>

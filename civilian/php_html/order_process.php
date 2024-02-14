@@ -11,7 +11,7 @@ if (isset($_SESSION['user_id'])) {
 
 $checkedProductsInfo = isset($_GET['products']) ? json_decode($_GET['products'], true) : array();
 
-// Get user information
+// get user information
 $getUserInfoQuery = "SELECT name, lastname, phone, address FROM users WHERE user_id = ?";
 $getUserInfoStmt = $conn->prepare($getUserInfoQuery);
 $getUserInfoStmt->bind_param("i", $userId);
@@ -102,14 +102,14 @@ $orderProductsJSON = json_encode($orderProducts);
 </head>
 <body>
 
-  <!-- Menu Toggle Button -->
+  <!-- menu toggle button -->
   <div id="menu-toggle" onclick="toggleMenu()">&#9776;</div>
 
   <header>
     <h1> Υποβολή Αιτημάτων</h1>
   </header>
 
-  <!-- side Navigation Menu -->
+  <!-- side navigation nenu -->
   <div id="mySidenav">
     <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
     <a href="mainpagecitizen.php" onclick="toggleMenu()">Αρχική</a>
@@ -117,6 +117,7 @@ $orderProductsJSON = json_encode($orderProducts);
     <a href="contact.php" onclick="toggleMenu()">Επικοινωνία</a>
   </div>
 
+  <!-- user container -->
   <div id="user-container">
     <button id="imageButton" onclick="toggleUserMenu()">
       <img src="../../img/ssmvtnogc7ue0jufjd03h6mj89.png" alt="Button Image">
@@ -128,16 +129,17 @@ $orderProductsJSON = json_encode($orderProducts);
     </button>
   </div>
   
+  <!-- two tables with appropriate data -->
   <div id="order-summary-container" class="content tab-content hidden order-summary">
-    <h2>Your Order Summary</h2>
+    <h2>Σύνοψη Παραγγελίας</h2>
     <table id="order-summary-table">
       <tbody id="order-summary-list" class="product-list"></tbody>
     </table>
   </div>
   <div id="user-info-container" class="content tab-content hidden user-info">
-    <h2>Your User Information</h2>
+    <h2>Πληροφορίες Χρήστη</h2>
     <div id="combined-container">
-        <!-- Buttons will be appended here -->
+        <!-- buttons will be appended here -->
     </div>
     <table id="user-info-table">
         <tbody id="user-info-list"></tbody>

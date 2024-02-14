@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Fetch user data
+// fetch user data
 $user_id = $_SESSION['user_id'];
 $sql = "SELECT name, lastname, address, phone, username, password FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
@@ -51,7 +51,7 @@ $conn->close();
       <h1> Λεπτομέρειες Χρήστη</h1>
   </header>
 
-    <!-- Side Navigation Menu -->
+    <!-- side navigation menu -->
     <div id="mySidenav">
         <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
         <a href="mainpagecitizen.php" onclick="toggleMenu()">Αρχική</a>
@@ -60,6 +60,7 @@ $conn->close();
         <a href="contact.php" onclick="toggleMenu()">Επικοινωνία</a>
     </div>
 
+    <!-- user container -->
     <div id="user-container">
         <button id="imageButton" onclick="toggleUserMenu()">
             <img src="../../img/ssmvtnogc7ue0jufjd03h6mj89.png" alt="Button Image">
@@ -77,7 +78,7 @@ $conn->close();
     </div>  
     
   <form id="profileForm">
-    <!-- Personal Information Section -->
+    <!-- personal information section -->
   <section>
       <h2>Προσωπικές Πληροφορίες</h2>
       <label for="username">Username:</label>
@@ -104,10 +105,6 @@ $conn->close();
 
       <label for="address">Διεύθυνση:</label>
       <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($user_data['address']); ?>">
-
-   
-
-
 </section>
 
     <section>
@@ -131,7 +128,7 @@ $conn->close();
             <img src="../../img/donate.png" alt="Donate Now">
         </a>
         </div>
-            <hr class="divider"> <!-- Add a horizontal line as a divider -->
+            <hr class="divider"> 
             <div class="section2">
                     <div class="column">
                       <h3>Επικοινωνία</h3>

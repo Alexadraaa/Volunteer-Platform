@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Extract data from the POST request
+    // extract data from the POST request
     $name = $_POST['name'];
     $lastname = $_POST['lastname'];
     $address = $_POST['address'];
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $confirmPassword = $_POST['confirmPassword'];
 
-    // Check if the new username already exists
+    // check if the new username already exists
     $checkUsername = "SELECT * FROM users WHERE username = ?";
     $checkUsernameStmt = $conn->prepare($checkUsername);
     $checkUsernameStmt->bind_param("s", $newUsername);

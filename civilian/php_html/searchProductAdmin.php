@@ -41,11 +41,11 @@ if (isset($_GET['search'])) {
             }
         }
     } else {
-        // Handle the case when the user clicks the button without entering any search term
+        // handle the case when the user clicks the button without entering any search term
         $response = ['type' => 0, 'error' => 'Παρακαλώ εισάγετε κείμενο για αναζήτηση.'];
     }
 } else {
-    // Handle the case when $_GET['search'] is not set
+    // handle the case when $_GET['search'] is not set
     $response = ['type' => 0, 'error' => 'Παρακαλώ εισάγετε κείμενο για αναζήτηση.'];
 }
 

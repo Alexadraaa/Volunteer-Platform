@@ -67,7 +67,7 @@ If the data is invalid, the user is redirected to the same page and the errors a
                 $stmt->bind_param("ssssss", $username, $hashedPassword, $name, $lastname, $phone, $address);
                 $stmt->execute();
 
-                // Retrieve the user_id of the inserted user
+                // retrieve the user_id of the inserted user
                 $user_id = $stmt->insert_id;
 
                 $stmt->close();
@@ -126,9 +126,8 @@ If the data is invalid, the user is redirected to the same page and the errors a
             var loadingMessage = document.getElementById('loading-message');
             loadingContainer.style.display = 'flex';
 
-            setTimeout(function () {
-                window.location.href = 'mainpagecitizen.php';
-            }, 3000);
+            var userId = <?php echo $user_id; ?>; // retrieve the user_id of the inserted user
+            window.location.href = 'mainpagecitizen.php?user_id=' + userId;
         }
 
         function redirectToLogin() {

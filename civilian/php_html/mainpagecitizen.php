@@ -4,13 +4,14 @@
 session_start();
 include("../../connection.php");
 
-if (isset($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id']) || isset($_GET['user_id'])) {
     $userId = $_SESSION['user_id'];
  // echo "User ID: $userId";
 } else {
 
     echo "User not logged in.";
-}
+} 
+
 
 // query to get the count of rescuers 
 $sqlRescuers = "SELECT COUNT(*) AS rescuer_count FROM rescuer";
@@ -44,7 +45,7 @@ $civilianCount = $rowCivilians['civilian_count'];
   <script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Main Page</title>
+  <title>Αρχική Σελίδα</title>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_nXA2oQ_YYbhvUp2MComLx7GwZLWVAxw&callback=initMap"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="..\css\mainpagecitizen.css">
