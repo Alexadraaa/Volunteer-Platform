@@ -125,9 +125,15 @@ If the data is invalid, the user is redirected to the same page and the errors a
             var loadingCircle = document.getElementById('loading-circle');
             var loadingMessage = document.getElementById('loading-message');
             loadingContainer.style.display = 'flex';
-
+/*
             var userId = <?php echo $user_id; ?>; // retrieve the user_id of the inserted user
-            window.location.href = 'mainpagecitizen.php?user_id=' + userId;
+            window.location.href = 'mainpagecitizen.php?user_id=' + userId;*/
+            <?php if(isset($user_id)): ?>
+                var userId = <?php echo $user_id; ?>;
+                window.location.href = 'mainpagecitizen.php?user_id=' + userId;
+           <?php else: ?>
+                window.location.href = 'mainpagecitizen.php';
+          <?php endif; ?>
         }
 
         function redirectToLogin() {
