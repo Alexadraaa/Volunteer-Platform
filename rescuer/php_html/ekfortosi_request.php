@@ -1,4 +1,5 @@
 <?php
+// php file in order to update the order state  when the rescuer deliver the order to the civilian
 session_start();
 include("../../connection.php");
 

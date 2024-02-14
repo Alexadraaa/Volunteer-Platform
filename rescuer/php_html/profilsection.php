@@ -1,5 +1,5 @@
 <?php
-
+// update the information of the rescuer
 session_start();
 include("../../connection.php");
 
@@ -45,27 +45,24 @@ $conn->close();
 <body>
 
   <!-- menu toggle Button -->
-  <div id="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+  
+  <div id="mySidenav">
+        <a href="rescuer.php" class="back-button">
+        <img src="../../img/back.jpg" alt="Back">
+    </a>
+</div>
+
     
   <header>
       <h1> Λεπτομέρειες Χρήστη</h1>
   </header>
 
-    <!-- side navigation menu -->
-    <div id="mySidenav">
-        <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
-        <a href="mainpagecitizen.php" onclick="toggleMenu()">Αρχική</a>
-        <a href="announcementscitizen.php" onclick="toggleMenu()">Ανακοινώσεις</a>
-        <a href="requests.php" onclick="toggleMenu()">Υπηρεσίες</a>
-        <a href="contact.php" onclick="toggleMenu()">Επικοινωνία</a>
-    </div>
-
+   
+    <!-- user menu -->
     <div id="user-container">
         <button id="imageButton" onclick="toggleUserMenu()">
             <img src="../../img/ssmvtnogc7ue0jufjd03h6mj89.png" alt="Button Image">
             <div id="userMenu" class="dropdown-content">
-                <a href="orders.php">Λίστα Αιτημάτων/Προσφορών</a>
-                <a href="profilsection.php">Προφίλ</a>
                 <a href="../../initialpage.php">Αποσύνδεση</a>
             </div>
         </button>
@@ -77,7 +74,7 @@ $conn->close();
     </div>  
     
   <form id="profileForm">
-    <!-- personal Information Section -->
+    <!-- personal information section -->
   <section>
       <h2>Προσωπικές Πληροφορίες</h2>
       <label for="username">Username:</label>
@@ -122,46 +119,10 @@ $conn->close();
   </form>
 </div>
 
-
 <footer>
-        <div class="footer-section">
-          <div></div>  
-          <p>Με την βοήθειά σου ,στηρίζεις τον καθημερινό διαμερισμό προιόντων σε ανθρώπους που το έχουν ανάγκη.Δώρισε σήμερα!</p>
-          <a href="requests.php" class="button">
-            <img src="../../img/donate.png" alt="Donate Now">
-        </a>
-        </div>
-            <hr class="divider"> 
-            <div class="section2">
-                    <div class="column">
-                      <h3>Επικοινωνία</h3>
-                      <ul>
-                        <li>Τηλέφωνο(χωρίς χρέωση):+306946930521</li>
-                        <li>Κινητό:+306946930521</li>
-                    </ul>
-                    <div id="social-media" class="left-align-icons" style="margin-top: 10px;">
-                      <a href="#" class="fa fa-facebook icon-small" target="_blank" rel="noopener noreferrer"></a>
-                      <a href="#" class="fa fa-twitter icon-medium" target="_blank" rel="noopener noreferrer"></a>
-                      <a href="mailto:thebestteam@outlook.com" class="fa fa-envelope icon-small"></a>
-                  </div>
-                    </div>
-                    <div class="column">
-                        <h3>Links</h3>
-                        <ul>
-                            <li><a href="mainpagecitizen.php">Η Ομάδα Μας</a></li>
-                            <li><a href="requests.php">Υπηρεσίες</a></li>
-                            <li><a href="contact.php">Επικοινωνία</a></li>
-                        </ul>
-                    </div>
-                    <div class="column">
-                        <h3>Τοποθεσία</h3>
-                        <p>Πλατεία Γεωργίου,Πάτρα</p>
-                       <div id="map"></div>  
-                 </div>
-                </div>
+    <p>&copy; 2024 Volunteer-Platfmorm. All rights reserved.</p>
 </footer>
 </body>
-
 <script>
 
 function updateProfile() {

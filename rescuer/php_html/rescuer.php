@@ -1,4 +1,5 @@
 User<?php
+// main page of the rescuer that can deliver orders from the base to the civilians(requests) and orders from the civilians to the base(offers). .
 session_start();
 include("../../connection.php");
 if (isset($_SESSION['user_id'])) {
@@ -28,16 +29,17 @@ if (isset($_SESSION['user_id'])) {
         <h1>Διασώστης</h1>
     </header>
 
+    <!-- user container -->
     <div id="user-container">
         <button id="imageButton" onclick="toggleUserMenu()">
-            <img src="../../img/ssmvtnogc7ue0jufjd03h6mj89.png" alt="Button Image">
+            <img src="../../img/profil.png" alt="Button Image">
             <div id="userMenu" class="dropdown-content">
                 <a href="profilsection.php">Προφίλ</a>
                 <a href="../../initialpage.php">Αποσύνδεση</a>
             </div>
         </button>
     </div>
-
+<!-- task table that will inform the rescuer about his tasks and the orders that are included in each task -->
     <div id="task">
         <button class="top-left-button" id="Tasks" onclick="triggerTasksTable()">
             <img src="../../img/task.png" alt="taskimg">
@@ -50,7 +52,7 @@ if (isset($_SESSION['user_id'])) {
                  
                 </thead>
                 <tbody id="tasksTableBody">
-                    <!-- Table rows will be dynamically added here -->
+                    <!-- table rows will be dynamically added here -->
                 </tbody>
             </table>
         </div>
@@ -116,6 +118,8 @@ if (isset($_SESSION['user_id'])) {
 var popuptable1 = document.getElementById("popuptable1");
 var popuptable2 = document.getElementById("popuptable2");
 
+
+// function to fetch tasks from the database and display them in a table
 function triggerTasksTable() {
     showPopup(popuptable1);
 
@@ -137,42 +141,43 @@ function triggerTasksTable() {
         }
     });
 }
+
+// function to populate the tasks table with the fetched tasks
 function populateTasksTable(tasks) {
-var tableBody = document.getElementById("tasksTableBody");
-tableBody.innerHTML = "";
-
-
-var tableHeader = document.createElement("tr");
-tableHeader.innerHTML = "<th>Task ID</th><th>Κατάσταση</th><th>Ημερομηνία</th><th>Όχημα</th>";
-tableBody.appendChild(tableHeader);
-
-tasks.forEach(function(task) {
-    var row = document.createElement("tr");
-    row.innerHTML = "<td>" + task.t_id + "</td>" +
-                    "<td>" + task.t_state + "</td>" +
-                    "<td>" + task.t_date + "</td>" +
-                    "<td>" + task.t_vehicle + "</td>";
-
-    var ordersButton = document.createElement("button");
-    ordersButton.className = "Tablebutton";
-    ordersButton.innerText = "Orders";
-    ordersButton.onclick = function() {
-        displayOrdersTable(task.t_id);
-    };
-
-    var cell = document.createElement("td");
-    cell.appendChild(ordersButton);
-    row.appendChild(cell);
-
-    tableBody.appendChild(row);
-    tasks.forEach(function (task) {
-     //   console.log("Task ID: " + task.t_id);
-    //    console.log("Task State: " + task.t_state);
- 
-    });
-});
+     var tableBody = document.getElementById("tasksTableBody");
+     tableBody.innerHTML = "";
+     
+     
+     var tableHeader = document.createElement("tr");
+     tableHeader.innerHTML = "<th>Task ID</th><th>Κατάσταση</th><th>Ημερομηνία</th><th>Όχημα</th>";
+     tableBody.appendChild(tableHeader);
+     
+     tasks.forEach(function(task) {
+         var row = document.createElement("tr");
+         row.innerHTML = "<td>" + task.t_id + "</td>" +
+                         "<td>" + task.t_state + "</td>" +
+                         "<td>" + task.t_date + "</td>" +
+                         "<td>" + task.t_vehicle + "</td>";
+     
+         var ordersButton = document.createElement("button");
+         ordersButton.className = "Tablebutton";
+         ordersButton.innerText = "Orders";
+         ordersButton.onclick = function() {
+             displayOrdersTable(task.t_id);
+         };
+     
+         var cell = document.createElement("td");
+         cell.appendChild(ordersButton);
+         row.appendChild(cell);
+     
+         tableBody.appendChild(row);
+         tasks.forEach(function (task) {
+      
+         });
+     });
 }
 
+// function to display the orders of a task in a table
 function displayOrdersTable(taskId) {
     showPopup(popuptable2); 
     $.ajax({
@@ -193,14 +198,13 @@ function displayOrdersTable(taskId) {
     });
 }
 
-
+// function to create the orders table of task
 function createOrdersTable(orders) {
-
     var ordersTableBody = document.getElementById("ordersTableBody");
     ordersTableBody.innerHTML = "";
   
     var tableHeader = document.createElement("tr");
-    tableHeader.innerHTML = "<th>Order ID</th><th>Type</th><th>State</th>";
+    tableHeader.innerHTML = "<th>Παραγγελία ID</th><th>Tύπος</th><th>Κατάσταση</th>";
     ordersTableBody.appendChild(tableHeader);
 
     orders.forEach(function(order) {
@@ -223,6 +227,7 @@ function closePopup(x) {
     x.classList.remove("open-popuptable");
 }
 
+// function to drag the popups
 function dragElement(elmnt) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     
@@ -302,6 +307,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
+// function to fetch all markers from the database
 function fetchMarkers() {
     $.ajax({
         url: 'getmarkersRescuer.php',
@@ -319,7 +325,7 @@ function fetchMarkers() {
 }
 
 
-
+// function to add markers to the map based on the fetched data from the database 
 function addMarkers(markersData) {
    
    var vehicleMarker=[];
@@ -411,6 +417,8 @@ function addMarkers(markersData) {
     map.lines = lines;
 }
 
+
+// update the lines that associate with a vehicle marker 
 function updateLines(vehicleMarkers, lines) {
     vehicleMarkers.forEach(function(marker, index) {
         var newCoords = marker.getLatLng();
@@ -509,7 +517,7 @@ var markersGroupActiveRequest = L.layerGroup();
 var markersGroupInactiveRequest = L.layerGroup();
 
 
-
+// function to get the icon based on the marker type
 function getIconWhenFetchingMarkers(markerType) {
     switch (markerType) {
         case 'base':
@@ -532,60 +540,59 @@ function getIconWhenFetchingMarkers(markerType) {
 }
 
 function getPopupContent(data) {
-
-switch (data.marker_type) {
-    case 'activeTaskCar':
-        return "Όνομα οχήματος: " + data.ve_username +
-               "<br>Όχημα ID: " + data.ve_id +
-               "<br>Task ID: " + data.t_id;
-    case 'inactiveTaskCar':
-        return "Όνομα οχήματος: " + data.ve_username ;
-    case 'activeRequest':
-        return "Active Aίτημα ID: " + data.or_id +
-               "<br>Όνομα: " + data.name +
-               "<br>Επίθετο: " + data.lastname +
-               "<br>Τηλέφωνο: " + data.phone +
-               "<br>Όχημα: " + data.ve_username +
-               "<br>Ημερομηνία: " + data.or_date +
-               "<br>Τύπος: " + data.or_type +
-               "<br>Κατάσταση: " + data.order_state +
-               "<br>Task ID: " + data.t_id+
-               "<br><button class='dropbutton' onclick='DropButton(" + data.or_id + ")'>Drop</button>";
-    case 'inactiveRequest':
-        return "Inactive Αίτημα  ID: " + data.or_id +
-               "<br>Όνομα: " + data.name +
-               "<br>Επίθετο: " + data.lastname +
-               "<br>Τηλέφωνο: " + data.phone +
-               "<br>Ημερομηνία: " + data.or_date +
-               "<br>Τύπος: " + data.or_type +
-               "<br>Κατάσταση: " + data.order_state +
-               "<br><button class='takebutton' onclick='TakeButton(" + data.or_id + ")'>Take</button>";
-    case 'activeDonation':
-        return "Active Προσφορά ID: " + data.or_id +
-               "<br>Όνομα: " + data.name +
-               "<br>Επίθετο: " + data.lastname +
-               "<br>Τηλέφωνο: " + data.phone +
-               "<br>Όχημα: " + data.ve_username +
-               "<br>Ημερομηνία: " + data.or_date +
-               "<br>Τύπος: " + data.or_type +
-               "<br>Κατάσταση: " + data.order_state +
-               "<br>Task ID: " + data.t_id+
-               "<br><button class='dropbutton' onclick='DropButton(" + data.or_id + ")'>Drop</button>";
-    case 'inactiveDonation':
-        return "Inactive Προσφορά ID: " + data.or_id +
-               "<br>Όνομα: " + data.name +
-               "<br>Επίθετο: " + data.lastname +
-               "<br>Τηλέφωο: " + data.phone +
-               "<br>Ημερομηνία: " + data.or_date +
-               "<br>Τύπος: " + data.or_type +
-               "<br>Κατάσταση: " + data.order_state +
-               "<br><button class='takebutton' onclick='TakeButton(" + data.or_id + ")'>Take</button>";
-    default:
-        return 'Default Popup: Order ID ' + data.or_id;
+   switch (data.marker_type) {
+       case 'activeTaskCar':
+           return "Όνομα οχήματος: " + data.ve_username +
+                  "<br>Όχημα ID: " + data.ve_id +
+                  "<br>Task ID: " + data.t_id;
+       case 'inactiveTaskCar':
+           return "Όνομα οχήματος: " + data.ve_username ;
+       case 'activeRequest':
+           return "Active Aίτημα ID: " + data.or_id +
+                  "<br>Όνομα: " + data.name +
+                  "<br>Επίθετο: " + data.lastname +
+                  "<br>Τηλέφωνο: " + data.phone +
+                  "<br>Όχημα: " + data.ve_username +
+                  "<br>Ημερομηνία: " + data.or_date +
+                  "<br>Τύπος: " + data.or_type +
+                  "<br>Κατάσταση: " + data.order_state +
+                  "<br>Task ID: " + data.t_id+
+                  "<br><button class='dropbutton' onclick='DropButton(" + data.or_id + ")'>Drop</button>";
+       case 'inactiveRequest':
+           return "Inactive Αίτημα  ID: " + data.or_id +
+                  "<br>Όνομα: " + data.name +
+                  "<br>Επίθετο: " + data.lastname +
+                  "<br>Τηλέφωνο: " + data.phone +
+                  "<br>Ημερομηνία: " + data.or_date +
+                  "<br>Τύπος: " + data.or_type +
+                  "<br>Κατάσταση: " + data.order_state +
+                  "<br><button class='takebutton' onclick='TakeButton(" + data.or_id + ")'>Take</button>";
+       case 'activeDonation':
+           return "Active Προσφορά ID: " + data.or_id +
+                  "<br>Όνομα: " + data.name +
+                  "<br>Επίθετο: " + data.lastname +
+                  "<br>Τηλέφωνο: " + data.phone +
+                  "<br>Όχημα: " + data.ve_username +
+                  "<br>Ημερομηνία: " + data.or_date +
+                  "<br>Τύπος: " + data.or_type +
+                  "<br>Κατάσταση: " + data.order_state +
+                  "<br>Task ID: " + data.t_id+
+                  "<br><button class='dropbutton' onclick='DropButton(" + data.or_id + ")'>Drop</button>";
+       case 'inactiveDonation':
+           return "Inactive Προσφορά ID: " + data.or_id +
+                  "<br>Όνομα: " + data.name +
+                  "<br>Επίθετο: " + data.lastname +
+                  "<br>Τηλέφωο: " + data.phone +
+                  "<br>Ημερομηνία: " + data.or_date +
+                  "<br>Τύπος: " + data.or_type +
+                  "<br>Κατάσταση: " + data.order_state +
+                  "<br><button class='takebutton' onclick='TakeButton(" + data.or_id + ")'>Take</button>";
+       default:
+           return 'Default Popup: Order ID ' + data.or_id;
+   }
 }
-}
-
-
+   
+// function to toggle markers group
 
 function toggleMarkersGroup(group) {
     if (map.hasLayer(group)) {
@@ -595,6 +602,7 @@ function toggleMarkersGroup(group) {
     }
 }
 
+//  function to add marker to group 
 function addMarkerToGroup(marker, markerType) {
     console.log('Adding marker to group:', markerType);
     console.log('Marker:', marker);
@@ -657,6 +665,7 @@ toggleMarkersButton6.addEventListener('click', function () {
 
 var buttonContainer = document.getElementById('button-container');
 
+// function to check the distance between the dragged marker and the other markers and display a button if the distance is less than 100 meters
 function checkDistanceAndDisplayButton(draggedMarker, allMarkers) {
     var vehicleCoords = draggedMarker.getLatLng();
     var shortestDistance = Infinity;
@@ -825,16 +834,12 @@ function displayButton(vehicleCoords, markerType,taskId,orderId) {
         
         }   
 }
-
+// function to deliver the donations from  the  civilians to base from a specific task
 function EkfortosiBase(taskId) {
-   
     var xhr = new XMLHttpRequest();
-
     xhr.open("POST", "ekfortosi_base.php", true);
 
-  
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             console.log(xhr.responseText);
@@ -845,12 +850,10 @@ function EkfortosiBase(taskId) {
     xhr.send("t_id=" + taskId);
 }
 
-
+// function to deliver the requests for the order to the civilians
 function EkfortosiRequest(orderId) {
 
-    console.log('eeeeeeeeeeep');
     var xhr = new XMLHttpRequest();
-
 
     xhr.open("POST", "ekfortosi_request.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -866,12 +869,10 @@ function EkfortosiRequest(orderId) {
     xhr.send("or_id=" + orderId);
 }
 
-
+// function to load the donations to vehicle
 function FortosiDonation(orderId) {
     var xhr = new XMLHttpRequest();
-
     xhr.open("POST", "fortosi_donation.php", true);
-
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onreadystatechange = function () {
@@ -886,6 +887,7 @@ function FortosiDonation(orderId) {
     xhr.send("or_id=" + orderId);
 }
 
+// function to load the orders to vehicle of a specific task
 function FortosiBase(taskId) {
 
     var xhr = new XMLHttpRequest();
@@ -904,7 +906,7 @@ function FortosiBase(taskId) {
     xhr.send("t_id=" + taskId);
 }
 
-
+// function to associate a inactive request/offer with a vehicle
 function TakeButton(orderId) {
     var xhr = new XMLHttpRequest();
 
@@ -923,7 +925,7 @@ function TakeButton(orderId) {
 }
 
 
-
+// function to disassociate a request/offer from a vehicle
 function DropButton(orderId) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "drop_order.php", true);

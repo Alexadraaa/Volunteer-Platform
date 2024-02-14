@@ -1,11 +1,12 @@
 <?php
+// this is the php file that is called when the user logs in and the map is loaded in order to fetch the markers data
 session_start();
 include("../../connection.php");
 
 function fetchMarkersData($conn, $userId) {
     $markersData = [];
 
-    // Fetch vehicle markers
+    // fetch vehicle markers data 
     $queryVehicle = " SELECT DISTINCT m.marker_id, m.latitude, m.longitude, m.marker_type, v.ve_id, v.ve_username, t.t_id, u.username, v.ve_state
                         FROM markers m
                         JOIN vehicle v ON m.ve_id = v.ve_id
@@ -27,7 +28,7 @@ function fetchMarkersData($conn, $userId) {
         }
     }
 
-    // Fetch active markers
+    // fetch active markers from each task. If a rescuer have 3 tasks then first would be displayed the markers of the current tasks ,when the task will be done  then the markers of the next task
    /* $queryActive = "SELECT m.marker_id, u2.name, u2.lastname, u2.phone, m.latitude, m.longitude, m.marker_type, v.ve_id, v.ve_username, o.or_type, o.or_date, o.or_id, o.order_state, t.t_id
                     FROM markers m
                     JOIN orders o ON m.or_id = o.or_id
@@ -78,19 +79,14 @@ function fetchMarkersData($conn, $userId) {
                    
                 ORDER BY 
                     t.t_id ASC";
-    /*                
-    $stmtActive = mysqli_prepare($conn, $queryActive);
-    mysqli_stmt_bind_param($stmtActive, "i", $userId);
-    mysqli_stmt_execute($stmtActive);
-    $resultActive = mysqli_stmt_get_result($stmtActive);
-*/   $resultActive = mysqli_query($conn, $queryActive);
+   $resultActive = mysqli_query($conn, $queryActive);
     if ($resultActive) {
         while ($rowActive = mysqli_fetch_assoc($resultActive)) {
             $markersData[] = $rowActive;
         }
     }
 
-    // Fetch inactive markers
+    // fetch inactive markers
     $queryInactive = "SELECT m.marker_id, m.latitude, m.longitude, m.marker_type, o.or_type, o.or_date, o.or_id, o.order_state, u.name, u.lastname, u.phone
     FROM markers m
     JOIN orders o ON m.or_id = o.or_id
@@ -104,7 +100,7 @@ function fetchMarkersData($conn, $userId) {
         }
     }
 
-    // Fetch base 
+    // fetch base 
     $queryAllBase = "SELECT m.marker_id, m.latitude, m.longitude, m.marker_type, t.t_id
                     FROM markers m
                     LEFT JOIN vehicle v ON m.ve_id = v.ve_id
@@ -125,6 +121,10 @@ function fetchMarkersData($conn, $userId) {
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
 
+    // check if there are any tasks in progress for the current user, select the minimum task id and check if there are any orders associated with the task.
+    // if there are no tasks in progress, then update the marker type to inactiveTaskCar and the vehicle state to onhold
+    // if there are tasks in progress, then update the marker type to activeTaskCar and the vehicle state to ontheroad
+    // if there are no orders associated with the task, then update the task state to done
     $checkTasksQuery = "SELECT MIN(t_id) AS min_task_id FROM tasks WHERE t_vehicle IN (SELECT resc_ve_id FROM rescuer WHERE resc_id = ?) AND t_state= 'inprocess'";
     $stmtTasks = mysqli_prepare($conn, $checkTasksQuery);
     mysqli_stmt_bind_param($stmtTasks, "i", $userId);

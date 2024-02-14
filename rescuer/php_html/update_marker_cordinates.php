@@ -1,4 +1,5 @@
 <?php
+// update vehicle markers when the rescuer moves them on the map
 session_start();
 include("../../connection.php");
 

@@ -1,4 +1,5 @@
 <?php
+// php file to fetch the orders of the rescuer of each task
 include("../../connection.php");
 
 if (isset($_GET['taskId'])) {

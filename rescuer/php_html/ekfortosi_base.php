@@ -1,4 +1,6 @@
 <?php
+// this is the php file that is called when the user clicks the "ekfortwsh " button in the rescuer's profile page in order to
+// unload the products from the vehicle that the users have donate them
 session_start();
 include("../../connection.php");
 

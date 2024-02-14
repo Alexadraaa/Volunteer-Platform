@@ -1,4 +1,5 @@
 <?php
+// this is the php file that is called when the user clicks the "take order" button in the rescuer's profile page in order to take an order from the available orders
 session_start();
 include("../../connection.php");
 

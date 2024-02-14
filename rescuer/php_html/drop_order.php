@@ -1,4 +1,5 @@
 <?php
+// this is the php file that is called when the user clicks the "drop order" button in the rescuer's profile page in order to drop an order from his tasks
 session_start();
 include("../../connection.php");
 
@@ -10,7 +11,8 @@ if (isset($_SESSION['user_id'])) {
 if (isset($_POST['order_id'])) {
 
     $order_id = mysqli_real_escape_string($conn, $_POST['order_id']);
-
+// update the order state to "Σε επεξέργασια" and the marker type to "inactiveRequest" or "inactiveDonation"
+// means that this order isnt anymore in the rescuer's tasks
     $update_order_query = "UPDATE orders SET order_state = 'Σε επεξέργασια' WHERE or_id = $order_id";
     $update_marker_query = "UPDATE markers 
                             SET 
@@ -35,6 +37,6 @@ if (isset($_POST['order_id'])) {
     echo "Order ID not provided in the request";
 }
 
-// Close the database connection
+
 mysqli_close($conn);
 ?>

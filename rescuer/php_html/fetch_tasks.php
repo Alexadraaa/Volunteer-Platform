@@ -1,4 +1,5 @@
 <?php
+// php file to fetch the tasks of the rescuer
 session_start();
 include("../../connection.php");
 

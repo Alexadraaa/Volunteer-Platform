@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         array_push($errors, "Εισαγάγετε έναν έγκυρο 10ψήφιο αριθμό τηλεφώνου");
     }
 
-    // ff there are no errors, update user information in the database
+    // if there are no errors, update user information in the database
     if (empty($errors)) {
         $updateAllSql = "UPDATE users SET name=?, lastname=?, address=?, phone=?, username=? WHERE user_id=?";
         $updateAllStmt = $conn->prepare($updateAllSql);

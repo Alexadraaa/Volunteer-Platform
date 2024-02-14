@@ -1,4 +1,5 @@
 <?php
+// php file when the products that donate a civilian are load to the vehicle in order to go to the base
 
 session_start();
 include("../../connection.php");

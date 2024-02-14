@@ -1,4 +1,5 @@
 <?php
+// load the vehicle with the orders(products) that the rescuer has to deliver in that specific task
 session_start();
 include("../../connection.php");
 
