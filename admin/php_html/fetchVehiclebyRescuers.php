@@ -101,7 +101,7 @@ if ($result) {
 <button id="imageButton" onclick="toggleUserMenu()">
   <img src="../../img/alesis.jpg" alt="Button Image">
   <div id="userMenu" class="dropdown-content">
-      <a href="orders.php">Λίστα Αιτημάτων/Προσφορών</a>
+      <a href="adminorders.php">Λίστα Αιτημάτων/Προσφορών</a>
       <a href="../../initialpage.php">Αποσύνδεση</a>
   </div>
 </button>
@@ -132,7 +132,7 @@ if ($result) {
         <table id="data-table">
             <thead>
                 <tr>
-                    <th>Vehicle Username</th>
+                    <th>Όχημα Username</th>
                    <!-- <th>Number of Rescuers</th>-->
                     <th>Επιλογή</th>
                 </tr>
@@ -142,6 +142,10 @@ if ($result) {
     </div>
 </div>
 </div>
+
+<footer>
+    <p>&copy; 2024 Volunteer-Platfmorm. All rights reserved.</p>
+</footer>
 
     <div id="loading-container" style="display:none;">
         <div id="loading-circle"></div>
@@ -372,7 +376,5 @@ function dragElement(elmnt) {
 
     </script>
 </body>
-<footer>
-    <p>&copy; 2024 Volunteer-Platfmorm. All rights reserved.</p>
-</footer>
+
 </html>

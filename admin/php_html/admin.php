@@ -20,7 +20,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Διαχειριστής</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="../css/admin.css">
@@ -195,7 +195,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var lines = [];
 
 
-// Custom Icon for Markers
+// custom Icon for Markers
 var baseIcon = L.icon({
     iconUrl: '../../img/home.png',
     iconSize: [30, 30],
@@ -205,7 +205,6 @@ var baseIcon = L.icon({
 
 
 
-// Custom Icon for Markers
 var activeTaskCarIcon = L.icon({
     iconUrl: '../../img/bluecar.png',
     iconSize: [30, 30],
@@ -213,7 +212,7 @@ var activeTaskCarIcon = L.icon({
     popupAnchor: [-5, -10]
 });
 
-// Custom Icon for Markers
+
 var inactiveTaskCarIcon = L.icon({
     iconUrl: '../../img/yellowcar.png',
     iconSize: [30, 30],
@@ -221,7 +220,7 @@ var inactiveTaskCarIcon = L.icon({
     popupAnchor: [-5, -10]
 });
 
-// Custom Icon for Markers
+
 var activeDonationIcon = L.icon({
     iconUrl: '../../img/greendonate.png',
     iconSize: [30, 30],
@@ -229,7 +228,7 @@ var activeDonationIcon = L.icon({
     popupAnchor: [-5, -10]
 });
 
-// Custom Icon for Markers
+
 var inactiveDonationIcon = L.icon({
     iconUrl: '../../img/orangedonate.png',
     iconSize: [30, 30],
@@ -237,7 +236,7 @@ var inactiveDonationIcon = L.icon({
     popupAnchor: [-5, -10]
 });
 
-// Custom Icon for Markers
+
 var activeRequestIcon = L.icon({
     iconUrl: '../../img/greenrequests.png',
     iconSize: [30, 30],
@@ -245,7 +244,7 @@ var activeRequestIcon = L.icon({
     popupAnchor: [-5, -10]
 });
 
-// Custom Icon for Markers
+
 var inactiveRequestIcon = L.icon({
     iconUrl: '../../img/orangerequest.png',
     iconSize: [30, 30],
@@ -757,9 +756,7 @@ fetchMarkers();
 
     </script>
 </body>
-<footer>
-    <p>&copy; 2024 Volunteer-Platfmorm. All rights reserved.</p>
-</footer>
+
 </html>
 
 

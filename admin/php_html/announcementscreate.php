@@ -24,106 +24,10 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Announcements</title>
+    <title>Δημιουργία Ανακοινώσεων</title>
     <link rel="stylesheet" type="text/css" href="..\css\umf.css">
-    <link rel="stylesheet" type="text/css" href="..\css\anouncementscreate.css">
+    <link rel="stylesheet" type="text/css" href="..\css\announcementscreate.css">
     <script src="..\js\umf.js" ></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        #container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin-left: 250px;
-            margin-top: 40px;
-        }
-
-        #announcement-container {
-            max-width: 600px;
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            margin-bottom: 100px;
-            padding-top: 40px;
-        }
-
-        #announcement-list,
-        #shortage-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .announcement,
-        .shortage-item {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-        }
-
-        #announcement-form {
-            margin-top: 20px;
-            display: flex; 
-            align-items: center; 
-        }
-
-        #announcement-content {
-            flex-grow: 1;
-            margin-right: 20px;
-            margin-left: 10px;
-            padding: 8px 16px;
-        }
-
-        #buttonsubmit {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-
-         #shortage-table {
-            margin-top: 40px;
-            overflow-y: auto;
-            height: 400px;
-        }
-
-        .table{
-            margin-top: 20px;
-            border-collapse: collapse;
-            height: 200px;
-            width: 30%; 
-            margin-bottom: 20px;
-            overflow: auto;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-         tbody {
-            overflow: auto;
-        }
-    </style>
 </head>
 <body>
 
@@ -147,7 +51,7 @@ $conn->close();
     <button id="imageButton" onclick="toggleUserMenu()">
         <img src="../../img/alesis.jpg" alt="Button Image">
         <div id="userMenu" class="dropdown-content">
-            <a href="orders.php">Λίστα Αιτημάτων/Προσφορών</a>
+            <a href="adminorders.php">Λίστα Αιτημάτων/Προσφορών</a>
             <a href="../../initialpage.php">Αποσύνδεση</a>
         </div>
     </button>
@@ -183,6 +87,11 @@ $conn->close();
         </tbody>
     </table>
 </div>
+
+<footer>
+    <p>&copy; 2024 Volunteer-Platfmorm. All rights reserved.</p>
+</footer>
+
 
 <script>
     let selectedProducts = [];

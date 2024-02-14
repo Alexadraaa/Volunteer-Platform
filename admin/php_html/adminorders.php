@@ -37,14 +37,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 $sqlInactiveVehicles = "
-    SELECT v.ve_id, v.ve_username, u.username AS rescuer_username
+    SELECT v.ve_id, v.ve_username, u.username AS rescuer_username 
     FROM vehicle v
     LEFT JOIN tasks t ON v.ve_id = t.t_vehicle
     LEFT JOIN rescuer r ON v.ve_id = r.resc_ve_id
     LEFT JOIN users u ON r.resc_id = u.user_id
     GROUP BY v.ve_id, v.ve_username, rescuer_username
-    HAVING COUNT(t.t_id) < 4  AND COUNT(r.resc_id) > 0
-";
+    HAVING COUNT(t.t_id) <= 4  AND COUNT(r.resc_id) > 0 ";
             
 $resultInactiveVehicles = $conn->query($sqlInactiveVehicles);
 
@@ -60,7 +59,7 @@ if (!$resultInactiveVehicles) {
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin orders</title>
+    <title>Παραγγελίες</title>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" type="text/css" href="../css/admin.css">
@@ -69,7 +68,7 @@ if (!$resultInactiveVehicles) {
     <script src="https://unpkg.com/draggablejs@1.1.0/lib/draggable.bundle.legacy.min.js"></script>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                
+     
 
 </head>
 <body>
@@ -96,7 +95,6 @@ if (!$resultInactiveVehicles) {
   <button id="imageButton" onclick="toggleUserMenu()">
       <img src="../../img/alesis.jpg" alt="Button Image">
       <div id="userMenu" class="dropdown-content">
-          <a href="adminorders.php">Λίστα Αιτημάτων/Προσφορών</a>
           <a href="../../initialpage.php">Αποσύνδεση</a>
       </div>
   </button>
@@ -134,7 +132,7 @@ if (!$resultInactiveVehicles) {
                      echo "<td>" . $row['or_type'] . "</td>";
                      echo "<td>" . $row['order_state'] . "</td>";
                      echo "<td>" . $row['or_date'] . "</td>";
-                     echo "<td>" . $row['fullname'] . "</td>"; // Display full name
+                     echo "<td>" . $row['fullname'] . "</td>"; 
                      echo "<td>" . $row['address'] . "</td>";
                      echo "<td>" . $row['t_id'] . "</td>";
                      echo "</tr>";
@@ -243,6 +241,7 @@ if (!$resultInactiveVehicles) {
     </div>
 </div>
 
+
  
 <script>
 
@@ -251,7 +250,7 @@ if (!$resultInactiveVehicles) {
     document.getElementById("orderForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
-        selectedOrderIds = []; // Clear the array on each form submission
+        selectedOrderIds = []; 
 
         var checkboxes = document.querySelectorAll('input[name="selected_orders[]"]:checked');
         checkboxes.forEach(function(checkbox) {

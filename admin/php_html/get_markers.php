@@ -12,8 +12,7 @@ function fetchAllMarkersData($conn) {
                         LEFT JOIN tasks t ON m.ve_id = t.t_vehicle
                         JOIN rescuer r ON r.resc_ve_id = v.ve_id 
                         JOIN users u ON r.resc_id = u.user_id
-                        WHERE m.marker_type IN ('activeTaskCar', 'inactiveTaskCar')
-                        ";
+                        WHERE m.marker_type IN ('activeTaskCar', 'inactiveTaskCar')";
     $resultAllVehicles = mysqli_query($conn, $queryAllVehicles);
 
     if ($resultAllVehicles) {
