@@ -1,0 +1,150 @@
+
+#header-content {
+  transition: margin-left 0.5s;
+  padding: 16px;
+}
+
+.announcement {
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  position: relative;
+  background-color: #fff;
+  color: #333;
+}
+
+.announcement-date {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.announcement button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  padding: 5px 10px;
+  background-color: rgb(12, 45, 109);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup-menu {
+  display: none;
+  position: fixed;
+  width: 300px;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgb(12, 45, 109);
+  z-index: 1;
+  user-select: none;
+  border-radius: 10px;
+  resize: both;
+  overflow: auto;
+  max-height: none;
+  max-width: none;
+}
+
+.popup-menu-header {
+  padding: 10px;
+  background-color: rgb(12, 45, 109);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.popup-menu-content {
+  padding: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  resize: both;
+  overflow: auto;
+  max-height: none;
+}
+
+#contribution-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  z-index: 3;
+}
+
+#contribution-popup-header {
+  cursor: move;
+  padding: 10px;
+  background-color: rgb(12, 45, 109);
+  color: #333;
+  user-select: none;
+}
+
+#contribution-popup-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.donation-item {
+display: flex;
+flex-direction: row;
+align-items: center; 
+margin-bottom: 10px; 
+}
+
+.donation-item label {
+margin-right: 10px; 
+}
+
+.line-number {
+margin-right: 5px;
+}
+#contribution-popup p {
+color: white;
+}
+
+.donate-button {
+background-color: rgb(12, 45, 109);
+color: white;
+}
+
+
+.close-btn {
+  cursor: pointer;
+  color: white;
+}
+
+.donation-item input {
+  width: 50px;
+}
+
+#donation-items div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; 
+}
+
+#donation-items label {
+  flex: 1;
+  margin-right: 10px;
+}
+
+#donation-items select {
+  flex: 2;
+  width: 100px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+

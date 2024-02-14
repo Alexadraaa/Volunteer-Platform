@@ -1,0 +1,279 @@
+header {
+    background-color: rgb(12, 45, 109);
+    color: white;
+    padding: 10px;
+    border-radius: 0 0 8px 8px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  
+  .page-content {
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+  }
+  
+  .tab-container {
+    display: flex;
+  }
+  
+  .tab {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    background-color: #ddd;
+    cursor: pointer;
+  }
+  
+  .tab:hover {
+    background-color: #ccc;
+  }
+  
+  .content {
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .product-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column; 
+  }
+  
+  .product-item {
+    margin-bottom: 10px;
+  }
+  
+  .order-summary {
+    margin-top: 20px;
+  }
+  
+  .mybutton {
+    background-color: rgb(12, 45, 109) ;
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    margin-right: 10px; 
+  }
+  
+  .mybutton:hover {
+    background-color: rgb(12, 45, 109);
+  }
+  
+  .category {
+    margin-bottom: 8px;
+    cursor: pointer;
+   }
+  .category-list {
+    list-style: none;
+    padding: 0;
+    cursor: pointer;
+    margin: 0;
+  }
+  
+  .category-item {
+    margin-bottom: 50px;
+  }
+  
+  .category-item:hover {
+    text-decoration: underline;
+  }
+  
+  .category-form label {
+    display: block; 
+    margin-bottom: 30px;
+  }
+  
+  .category-form {
+    display: none; 
+  }
+  
+  
+  #itemInput {
+    width: 200px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  #searchButton {
+    padding: 10px;
+  }
+  /*
+  .order-summary-table {
+    width: 400px;
+    margin: 0 auto;
+    border-collapse: separate;
+    margin-top: 10px; 
+    margin-left: 310px;
+  }
+  
+  .user-info-table {
+    width: 600px;
+    margin: 0 auto;
+    border-collapse: separate;
+    margin-top: 5px; 
+    padding-left: 50%;
+  }*/
+  /*
+  .order-summary-table {
+    width: 400px; 
+    margin: 0 auto;
+    border-collapse: separate;
+    margin-top: 200px;
+    margin-left: 340px; 
+  }
+  
+  .user-info-table {
+    width: 600px; 
+    margin: 0 auto;
+    border-collapse: separate;
+    margin-top: 20px;
+    margin-right: 350px; 
+    padding-left: 200px;
+  }
+  
+  .order-summary-table th,
+  .order-summary-table td {
+    padding: 10px; 
+    border: 1px solid #ddd; 
+    text-align: left; 
+  }
+  
+  
+  .user-info-table th,
+  .user-info-table td {
+    padding: 10px; 
+    border: 1px solid #ddd; 
+    text-align: left; 
+  
+  }*/
+  
+  #button-container {
+    text-align: center;
+    margin: auto;
+    margin-left: 700px;
+  }
+  
+  
+  .order-summary-table {
+    width: 400px;
+    margin: 0 auto;
+    border-collapse: separate;
+    margin-top: 100px;
+    margin-left: 100px;
+  }
+  
+  .user-info-table {
+    width: 600px;
+    margin: 0 auto;
+    border-collapse: separate;
+    margin-top: 20px;
+    margin-right: 350px;
+    padding-left: 100px;
+  }
+  
+  .order-summary-table th,
+  .order-summary-table td,
+  .user-info-table th,
+  .user-info-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  /*
+  .order-summary-table {
+    width: 120%; 
+    margin: 0 auto; 
+    border-collapse: separate; 
+    margin-top: 20px; 
+    max-height: 100px; 
+    margin-left: 300px;
+    padding-left: 120px;
+  }
+  
+  .user-info-table {
+    width: 100%; 
+    margin: 0 auto; 
+    border-collapse: separate; 
+    margin-top: 20px; 
+    max-height: 300px; 
+    overflow-y: auto; 
+    margin-left: 250px;
+  
+  }*/
+  
+  
+  #menu-container {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+   
+  }
+  
+  .autocomplete-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .quantity-input {
+    width: 40px;
+  }
+  
+  .product-table,
+  .category-table {
+    width: 100%;
+    max-height: 100px;
+    overflow-y: auto;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .product-table th,
+  .product-table td,
+  .category-table th,
+  .category-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  #custom-button1 {
+    background-color: rgb(12, 45, 109);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 10px; 
+}
+
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
