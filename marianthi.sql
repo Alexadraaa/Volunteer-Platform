@@ -256,7 +256,6 @@ insert into base(category,product,num) values
 ('alantika','loukaniko',400),
 ('alantika','zampon',300),
 ('alantika','galopoula',250),
-('alantika','galopoula',10),
 ('alantika','kotopoulo',300),
 ('alantika','aeros',210);
 
