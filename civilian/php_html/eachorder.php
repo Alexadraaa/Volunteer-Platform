@@ -1,20 +1,17 @@
 <?php
 //page that displays the details of a specific order
-// Starting the session
 session_start();
-// Including the file containing the database connection
 include("../../connection.php");
 
-// Redirecting to the initial page if user is not logged in
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../../initialpage.php");
     exit();
 }
 
-// Retrieving the order ID from the GET parameter
+// retrieving the order ID from the GET parameter
 $order_id = $_GET['id'];
 
-// Constructing SQL queries to fetch products for the specific order
 $queryProducts = "SELECT b.product, r.re_number
 FROM requests r
 JOIN base b ON r.re_pr_id = b.product_id
@@ -25,24 +22,22 @@ FROM offers o
 JOIN base b ON o.o_pr_id = b.product_id
 WHERE o.o_or_id = $order_id";
 
-// Executing the query to fetch products for the specific order
-$resultProducts = mysqli_query($conn, $queryProducts);
 
-// Checking for errors in fetching order products
+$resultProducts = mysqli_query($conn, $queryProducts);
 if (!$resultProducts) {
     die("Error retrieving order products: " . mysqli_error($conn));
 }
 
-// Fetching products for the specific order and storing them in the $products array
+// fetching products for the specific order and storing them in the $products array
 $products = [];
 while ($rowProduct = mysqli_fetch_assoc($resultProducts)) {
     $products[] = $rowProduct;
 }
 
-// Freeing the result set and closing the database connection
 mysqli_free_result($resultProducts);
 mysqli_close($conn);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,6 +58,8 @@ mysqli_close($conn);
     <h1>Λεπτομέρειες Παραγγελίας</h1>
 </header>
 
+
+<!-- side navigation menu -->
 <div id="mySidenav">
     <a id="close-btn" class="closebtn" onclick="toggleMenu()">&times;</a>
     <a href="mainpagecitizen.php" onclick="toggleMenu()">Αρχική</a>
@@ -70,10 +67,10 @@ mysqli_close($conn);
     <a href="requests.php" onclick="toggleMenu()">Υπηρεσίες</a>
     <a href="contact.php" onclick="toggleMenu()">Επικοινωνία</a>
 </div>
-
+<!-- user menu-->
 <div id="user-container">
     <button id="imageButton" onclick="toggleUserMenu()">
-        <img src="../../img/ssmvtnogc7ue0jufjd03h6mj89.png" alt="Button Image">
+        <img src="../../img/profil.png" alt="Button Image">
         <div id="userMenu" class="dropdown-content">
             <a href="orders.php">Λίστα Αιτημάτων/Προσφορών</a>
             <a href="profilsection.php">Προφίλ</a>
@@ -82,6 +79,7 @@ mysqli_close($conn);
     </button>
 </div>
 
+<!-- table with the products of the specific order -->
 <table id="productTable">
     <thead>
     <tr>

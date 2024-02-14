@@ -84,9 +84,8 @@ mysqli_close($conn);
     <!-- user container -->
     <div id="user-container">
         <button id="imageButton" onclick="toggleUserMenu()">
-            <img src="../../img/ssmvtnogc7ue0jufjd03h6mj89.png" alt="Button Image">
+            <img src="../../img/profil.png" alt="Button Image">
             <div id="userMenu" class="dropdown-content">
-                <a href="orders.php">Λίστα Αιτημάτων/Προσφορών</a>
                 <a href="profilsection.php">Προφίλ</a>
                 <a href="../../initialpage.php">Αποσύνδεση</a>
             </div>
