@@ -14,6 +14,7 @@ Features:
   7.  Item Declaration: Citizens can declare whether they have items requested by the base for pickup by rescuers.
 
 Technologies Used:
+
     Frontend:
         1. HTML
         2. CSS
