@@ -13,7 +13,7 @@ Features:
   6.  Announcements: The base can announce needs for items that are in short supply, displayed on citizens' mobile phones.
   7.  Item Declaration: Citizens can declare whether they have items requested by the base for pickup by rescuers.
 
-Technologies Used-
+Technologies Used:
     Frontend:
         1. HTML
         2. CSS
